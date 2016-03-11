@@ -3,7 +3,9 @@ package com.epfl.computational_photography.paletizer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
+
+public class MainActivity extends SlideMenuActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
