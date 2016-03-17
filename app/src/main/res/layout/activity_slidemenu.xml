@@ -78,7 +78,7 @@ http://codetheory.in/android-navigation-drawer/
             android:layout_height="match_parent"
             android:layout_below="@+id/profileBox"
             android:choiceMode="singleChoice"
-            android:background="#ffffffff" />
+            android:background="#ffffffff" />n
     </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

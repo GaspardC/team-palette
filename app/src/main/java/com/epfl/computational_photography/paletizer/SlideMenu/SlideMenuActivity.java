@@ -24,6 +24,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.epfl.computational_photography.paletizer.Main2Activity;
+import com.epfl.computational_photography.paletizer.Main3Activity;
+import com.epfl.computational_photography.paletizer.Main4Activity;
 import com.epfl.computational_photography.paletizer.MainActivity;
 import com.epfl.computational_photography.paletizer.R;
 
@@ -65,7 +68,10 @@ public abstract class SlideMenuActivity extends AppCompatActivity {
 
 
         //home
-        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.menu_frame, MainActivity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, MainActivity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, Main2Activity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, Main3Activity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, Main4Activity.class));
 
 
         mTitle = mDrawerTitle = getTitle();//
