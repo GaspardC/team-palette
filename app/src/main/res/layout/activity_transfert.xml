@@ -7,9 +7,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.epfl.computational_photography.paletizer.Main4Activity"
-    android:background="#ffbb98"
+    tools:context=".TransfertActivity"
+    android:background="#ffff98"
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="Hello World!" />
+            android:text="Hello Transfert!" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -5,28 +5,23 @@ took most of the code from there
 http://codetheory.in/android-navigation-drawer/
 */
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.epfl.computational_photography.paletizer.Main2Activity;
-import com.epfl.computational_photography.paletizer.Main3Activity;
-import com.epfl.computational_photography.paletizer.Main4Activity;
+import com.epfl.computational_photography.paletizer.StyleActivity;
+import com.epfl.computational_photography.paletizer.TransfertActivity;
+import com.epfl.computational_photography.paletizer.PaletteActivity;
 import com.epfl.computational_photography.paletizer.MainActivity;
 import com.epfl.computational_photography.paletizer.R;
 
@@ -69,9 +64,9 @@ public abstract class SlideMenuActivity extends AppCompatActivity {
 
         //home
         slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, MainActivity.class));
-        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, Main2Activity.class));
-        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, Main3Activity.class));
-        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, Main4Activity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, StyleActivity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, TransfertActivity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, PaletteActivity.class));
 
 
         mTitle = mDrawerTitle = getTitle();//

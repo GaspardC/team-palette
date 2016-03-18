@@ -144,4 +144,16 @@ public class MainActivity extends SlideMenuActivity {
     }
 
 
+    public void goToTransfertActivity(View view) {
+        Intent newActivity = new Intent(this, TransfertActivity.class);
+        startActivity(newActivity);    }
+
+
+    public void goToPaletteActivity(View view) {
+        Intent newActivity = new Intent(this, PaletteActivity.class);
+        startActivity(newActivity);    }
+
+    public void goToStyleActivity(View view) {
+        Intent newActivity = new Intent(this, StyleActivity.class);
+        startActivity(newActivity);    }
 }
