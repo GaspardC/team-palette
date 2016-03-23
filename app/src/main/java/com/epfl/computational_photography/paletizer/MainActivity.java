@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,10 +20,8 @@ import java.io.IOException;
 
 public class MainActivity extends SlideMenuActivity {
 
-    private static final int RESULT_LOAD_IMG = 0;
     int TAKE_PHOTO_CODE = 2;
     public static int count = 0;
-    private String imgDecodableString;
     private String dir;
     private String fileName;
 
@@ -33,25 +30,26 @@ public class MainActivity extends SlideMenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Here, we are making a folder named picFolder to store
+        /*// Here, we are making a folder named picFolder to store
         // pics taken by the camera using this application.
         dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
         File newdir = new File(dir);
-        newdir.mkdirs();
+        newdir.mkdirs();*/
     }
 
-    public void choseFromLibrary(View view) {
 
-        // Create intent to Open Image applications like Gallery, Google Photos
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-// Start the Intent
-        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+    /**
+     * @param view when user click on the button Library
+     */
+    public void choseFromLibrary(View view) {
+        PhotoManager.choseFromLibrary(this);
     }
 
     public void takeAPhoto(View view) {
 
 
-        // Here, the counter will be incremented each time, and the
+        PhotoManager.takePhoto(this);
+        /*// Here, the counter will be incremented each time, and the
         // picture taken by camera will be stored as 1.jpg,2.jpg
         // and likewise.
         count++;
@@ -70,8 +68,8 @@ public class MainActivity extends SlideMenuActivity {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
-        startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
+b
+        startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);*/
 
     }
 
@@ -79,7 +77,14 @@ public class MainActivity extends SlideMenuActivity {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             // When an Image is picked
-            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
+            Bitmap libraryBitmap = PhotoManager.getBitmapFromLibrary(this, requestCode, resultCode, data);
+            if(libraryBitmap != null){
+                ImageView imgView = (ImageView) findViewById(R.id.imageMainActivity);
+                // Set the Image in ImageView after decoding the String
+                imgView.setImageBitmap(libraryBitmap);
+            }
+
+            /*if (requestCode == PaletizerApplication.RESULT_LOAD_IMG && resultCode == RESULT_OK
                     && null != data) {
                 // Get the Image from data
 
@@ -100,8 +105,14 @@ public class MainActivity extends SlideMenuActivity {
                 imgView.setImageBitmap(BitmapFactory
                         .decodeFile(imgDecodableString));
 
+            }*/
+
+            Bitmap cameraBitmap = PhotoManager.getBitmapFromCamera(this,requestCode,resultCode);
+            if(cameraBitmap != null){
+                ImageView preview = (ImageView) findViewById(R.id.imageMainActivity);
+                preview.setImageBitmap(cameraBitmap);
             }
-            else if(requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
+             /*if(requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
                 Log.d("CameraDemo", "Pic saved");
 
                 Bitmap bm = resizeIfNeeded(400);
@@ -117,10 +128,11 @@ public class MainActivity extends SlideMenuActivity {
             else {
                 Toast.makeText(this, "You haven't picked Image",
                         Toast.LENGTH_LONG).show();
-            }
+            }*/
         } catch (Exception e) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
                     .show();
+            Log.d("eeeee", e.toString());
         }
 
     }
