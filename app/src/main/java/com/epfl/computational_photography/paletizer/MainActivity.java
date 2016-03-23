@@ -35,8 +35,13 @@ public class MainActivity extends SlideMenuActivity {
 
         // Here, we are making a folder named picFolder to store
         // pics taken by the camera using this application.
-        dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
+        dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/blabla/";
         File newdir = new File(dir);
+/*        String appDirectoryName = "XYZ";
+        File imageRoot = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), appDirectoryName);
+        imageRoot.mkdirs();
+        final File image = new File(imageRoot, "image1.jpg");*/
         newdir.mkdirs();
     }
 
