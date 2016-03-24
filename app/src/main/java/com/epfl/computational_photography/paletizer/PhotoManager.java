@@ -27,17 +27,11 @@ public class PhotoManager {
     public static int count = 0;
 
 
-
-
     public static void takePhoto(Activity activity){
 
 
-        // Here, the counter will be incremented each time, and the
-        // picture taken by camera will be stored as 1.jpg,2.jpg
-        // and likewise.
-        SimpleDateFormat sdf = new SimpleDateFormat("dd_HHmm");
-        String currentDateandTime = sdf.format(new Date());
-        String file = PaletizerApplication.dir+currentDateandTime+".jpg";
+        count++;
+        String file = PaletizerApplication.dir+count+".jpg";
         File newfile = new File(file);
         PaletizerApplication.fileName = newfile.getAbsolutePath();
 
@@ -53,7 +47,8 @@ public class PhotoManager {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
-        activity.startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), PaletizerApplication.TAKE_PHOTO_CODE);
+        activity.startActivityForResult(cameraIntent, PaletizerApplication.TAKE_PHOTO_CODE);
+
     }
 
     public static void choseFromLibrary(Activity activity){
@@ -65,8 +60,7 @@ public class PhotoManager {
 
 
     public static Bitmap getBitmapFromLibrary(Activity activity, int requestCode, int resultCode, Intent data) {
-        if (requestCode == PaletizerApplication.RESULT_LOAD_IMG && resultCode == RESULT_OK
-                && null != data) {
+
             // Get the Image from data
 
             Uri selectedImage = data.getData();
@@ -82,31 +76,23 @@ public class PhotoManager {
             imgDecodableString = cursor.getString(columnIndex);
             cursor.close();
 
-
-        }
-        else{
-            Toast.makeText(activity, "Something went wrong", Toast.LENGTH_LONG)
-                    .show();
-        }
         return BitmapFactory.decodeFile(imgDecodableString);
 
     }
 
     public static Bitmap getBitmapFromCamera(Activity activity, int requestCode, int resultCode) {
 
-        if(requestCode == PaletizerApplication.TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
             Log.d("CameraDemo", "Pic saved");
 
             Bitmap bm = resizeIfNeeded(400);
             if (bm == null) {
                 Toast.makeText(activity.getApplicationContext(), "problem with the image", Toast.LENGTH_SHORT).show();
+                return null;
             } else {
                 Log.d("CameraDemo", "Pic displayed");
                 return bm;
 
             }
-        }
-        return null;
     }
 
 
