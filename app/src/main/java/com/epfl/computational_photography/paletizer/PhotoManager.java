@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -22,16 +23,19 @@ import java.util.Date;
  */
 public class PhotoManager {
 
-    public static final int RESULT_OK           = -1;
     private static String imgDecodableString;
-    public static int count = 0;
 
 
     public static void takePhoto(Activity activity){
 
 
-        count++;
-        String file = PaletizerApplication.dir+count+".jpg";
+        Date today = Calendar.getInstance().getTime();
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
+
+        String date = formatter.format(today);
+        String file = PaletizerApplication.dir+date+".jpg";
         File newfile = new File(file);
         PaletizerApplication.fileName = newfile.getAbsolutePath();
 
