@@ -24,14 +24,16 @@
             android:id="@+id/transfertSourceImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@android:drawable/ic_menu_camera"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/mer"
             android:onClick="transfertChoseFromLibrary"/>
         <ImageView
+            android:layout_marginLeft="10dp"
             android:tag="target"
             android:id="@+id/transfertTargetImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@android:drawable/ic_menu_camera"
+            android:src="@drawable/soleil"
             android:onClick="transfertChoseFromLibrary"/>
     </LinearLayout>
         <ImageView

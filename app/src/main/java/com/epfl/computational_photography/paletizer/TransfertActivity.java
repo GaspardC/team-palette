@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDouble;
 import org.opencv.core.Scalar;
@@ -37,6 +39,12 @@ public class TransfertActivity extends SlideMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfert);
+        focusImage = (ImageView) findViewById(R.id.transfertSourceImage);
+        bitSource = ((BitmapDrawable)focusImage.getDrawable()).getBitmap();
+        focusImage = (ImageView) findViewById(R.id.transfertTargetImage);
+        bitTarget = ((BitmapDrawable)focusImage.getDrawable()).getBitmap();
+
+
     }
 
     /**
@@ -103,17 +111,15 @@ public class TransfertActivity extends SlideMenuActivity {
             Mat sourceMat = new Mat();
             Utils.bitmapToMat(bitSource, sourceMat);
             Mat targetMat = new Mat();
-            Utils.bitmapToMat(bitSource, targetMat);
+            Utils.bitmapToMat(bitTarget, targetMat);
 
             Imgproc.cvtColor(sourceMat, sourceMat, Imgproc.COLOR_RGB2Lab, 0);
             Imgproc.cvtColor(targetMat, targetMat, Imgproc.COLOR_RGB2Lab, 0);
+            sourceMat.convertTo(sourceMat, CvType.CV_32FC3);
+            targetMat.convertTo(targetMat,CvType.CV_32FC3);
 
-
-            List listSoure = new ArrayList();
-            List listTarget = new ArrayList();
-
-            listSoure = getStdMean(sourceMat);
-            listTarget = getStdMean(targetMat);
+            List listSoure = getStdMean(sourceMat);
+            List listTarget = getStdMean(targetMat);
 
             List<Mat> llab = new ArrayList<Mat>(3);
             Core.split(targetMat, llab);
@@ -121,37 +127,52 @@ public class TransfertActivity extends SlideMenuActivity {
             Mat A = llab.get(1);
             Mat B = llab.get(2);
 
-            Scalar tlm = Scalar.all((Double)listTarget.get(0));
-            Scalar tam = Scalar.all((Double)listTarget.get(1));
-            Scalar tbm = Scalar.all((Double)listTarget.get(2));
-            Scalar slm = Scalar.all((Double)listSoure.get(0));
-            Scalar sam = Scalar.all((Double)listSoure.get(1));
-            Scalar sbm = Scalar.all((Double)listSoure.get(2));
-            Scalar tls = Scalar.all((Double)listTarget.get(3));
-            Scalar tas = Scalar.all((Double)listTarget.get(4));
-            Scalar tbs = Scalar.all((Double)listTarget.get(5));
-            Scalar sls = Scalar.all((Double)listSoure.get(3));
-            Scalar sas = Scalar.all((Double)listSoure.get(4));
-            Scalar sbs = Scalar.all((Double)listSoure.get(5));
+            Double tlm = (Double) listTarget.get(0);
+            Double tam = (Double)listTarget.get(1);
+            Double tbm = (Double)listTarget.get(2);
+            Double slm = (Double)listSoure.get(0);
+            Double sam = (Double)listSoure.get(1);
+            Double sbm = (Double)listSoure.get(2);
 
-            Double negtlm = - (Double) listTarget.get(0);
-            Double negtam = - (Double) listTarget.get(1);
-            Double negtbm = - (Double) listTarget.get(2);
+            Double tls = (Double)listTarget.get(3);
+            Double tas = (Double)listTarget.get(4);
+            Double tbs = (Double)listTarget.get(5);
+            Double sls = (Double)listSoure.get(3);
+            Double sas = (Double)listSoure.get(4);
+            Double sbs = (Double)listSoure.get(5);
 
-            Core.add(L, (Scalar.all(negtlm)), L);
-            Core.add(A, (Scalar.all(negtam)), A);
-            Core.add(B, (Scalar.all(negtbm)), B);
+            Mat ones;
+            ones = Mat.ones(L.size(), L.type());
 
-            Scalar r = Scalar.all((Double)listTarget.get(3) / (Double)listSoure.get(3));
-            Core.multiply(L, r, L);
-            r = Scalar.all((Double)listTarget.get(4) / (Double)listSoure.get(4));
-            Core.multiply(A,r , A);
-            r = Scalar.all((Double)listTarget.get(5) / (Double)listSoure.get(5));
-            Core.multiply(A, r, A);
+            Core.add(L, multiplyScalar(ones, -tlm), L);
+            Core.add(A, multiplyScalar(ones, -tam), A);
+            Core.add(B, multiplyScalar(ones, -tbm), B);
 
-            Core.add(L, slm, L);
-            Core.add(A,sam,A);
-            Core.add(B,sbm,B);
+
+            L = multiplyScalar(L, (tls / sls));
+            A = multiplyScalar(A, (tas / sas));
+            B = multiplyScalar(B, (tbs / sbs));
+
+           /* L = ones.mul(L);
+            A = ones.mul(A);
+            B = ones.mul(B);*/
+
+          /*  L = L.mul(multiplyScalar(ones, (tls / sls)));
+            A = A.mul(multiplyScalar(ones, (tas / sas)));
+            B = B.mul(multiplyScalar(ones, (tbs / sbs)));
+*/
+
+
+            /*Core.multiply(ones, multiplyScalar(ones, (tls / sls)), L);
+            Core.multiply(ones, multiplyScalar(ones, (tas / sas)), A);
+            Core.multiply(ones, multiplyScalar(ones, (tbs / sbs)), B);*/
+
+            Core.add(L,multiplyScalar(ones,slm), L);
+            Core.add(A, multiplyScalar(ones,sam), A);
+            Core.add(B,multiplyScalar(ones,sbm), B);
+            L = convert(L);
+            A = convert(A);
+            B = convert(B);
 
             Mat result = new Mat();
             ArrayList<Mat> list = new ArrayList<>();
@@ -161,45 +182,31 @@ public class TransfertActivity extends SlideMenuActivity {
             Imgproc.cvtColor(result, result, Imgproc.COLOR_Lab2RGB);
 
             // Find the correct scale value. It should be the power of 2.
-            int size = 400;
+            int size = 800;
             int scale = 1;
             while(result.cols() / scale / 2 >= size &&
                     result.rows() / scale / 2 >= size) {
                 scale *= 2;
             }
-//            bitmapResult = Bitmap.createBitmap(result.rows()/scale, result.cols()/scale, Bitmap.Config.RGB_565);
             BitmapFactory.Options o2 = new BitmapFactory.Options();
             o2.inSampleSize = scale;
 
-
-
-            bitmapResult = Bitmap.createBitmap(result.cols(), result.rows(), Bitmap.Config.RGB_565);
+            bitmapResult = Bitmap.createBitmap(result.cols(), result.rows(), Bitmap.Config.ARGB_8888);
             Utils.matToBitmap(result, bitmapResult);
             ImageView imRes = (ImageView) (findViewById(R.id.transfertImageResult));
             imRes.setImageBitmap(bitmapResult);
-
-
-
-
-
-           /*
-                l -= tlm
-                  a -= tam
-                  b -= tbm
-
-             l = (tls / sls) * l
-            a = (tas / sas) * a
-            b = (tbs / sbs) * b
-
-            l += slm
-            a += sam
-            b += sbm*/
-
-
-
-
         }
 
+    }
+
+    private Mat convert(Mat L) {
+        Core.MinMaxLocResult minMax = Core.minMaxLoc(L);
+        double max = minMax.maxVal;
+        double min = minMax.minVal;
+        Mat R = new Mat();
+        Core.normalize(L,R,0,255,Core.NORM_MINMAX,CvType.CV_8U);
+//        L.convertTo(R,CvType.CV_8UC1,255.0 / (max - min), - min * 255.0 / (max - min));
+        return R;
     }
 
     private List getStdMean( Mat sourceMat) {
@@ -227,9 +234,6 @@ public class TransfertActivity extends SlideMenuActivity {
         double dMeanA = meanA.get(0,0)[0];
         double dMeanB = meanB.get(0,0)[0];
 
-
-
-
         List list = new ArrayList<>();
         list.add(0,dStdL);
         list.add(1,dStdA);
@@ -240,31 +244,23 @@ public class TransfertActivity extends SlideMenuActivity {
         return list;
     }
 
-    private int[] rgbToLab(int redValue, int greenValue, int blueValue) {
-        Matrix a = new Matrix();
-        Matrix b = new Matrix();
-        Matrix c = new Matrix();
+    public Mat multiplyScalar(Mat m, double i)
+    {
+        /*Mat eyes = new Mat();
+        eyes = Mat.eye(m.size(), m.type());
 
-        float valuesA [] =
-                {(float) (1/Math.sqrt(3)),0,0,
-                0, (float) (1/ Math.sqrt(6)),0,
-                0,0,(float) (1/Math.sqrt(2))};
-        float valuesB [] =
-                {1,1,1,
-                 1,1,-2,
-                 1,-1,0};
-
-        float valuesC [] =
-                {0.3811f,0.5783f,0,0402f,
-                 0.1967f,0.7244f,0.0782f,
-                 0.0241f,0.1288f,0.8444f};
-
-        a.setValues(valuesA);
-        b.setValues(valuesB);
-        c.setValues(valuesC);
+        Mat zeros = new Mat();
+        zeros = Mat.zeros(m.size(), m.type());*/
 
 
+        m  = m.mul(new Mat((int)m.size().height, (int)m.size().width, m.type(), new Scalar(i)));
 
-        return new int[0];
+        /*Core.multiply(eyes,new Scalar(i),eyes);
+        Mat tmp = new Mat();
+        Core.scaleAdd(m,i,zeros,tmp);
+*/
+
+        return m;
+
     }
 }
