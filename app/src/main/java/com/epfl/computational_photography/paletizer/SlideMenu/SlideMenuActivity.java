@@ -69,6 +69,7 @@ public abstract class SlideMenuActivity extends AppCompatActivity {
         slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, PaletteActivity.class));
 
 
+
         mTitle = mDrawerTitle = getTitle();//
 
 
