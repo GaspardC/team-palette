@@ -115,6 +115,8 @@ public class TransfertActivity extends SlideMenuActivity {
 
             Imgproc.cvtColor(sourceMat, sourceMat, Imgproc.COLOR_RGB2Lab, 0);
             Imgproc.cvtColor(targetMat, targetMat, Imgproc.COLOR_RGB2Lab, 0);
+
+
             sourceMat.convertTo(sourceMat, CvType.CV_32FC3);
             targetMat.convertTo(targetMat,CvType.CV_32FC3);
 
@@ -153,33 +155,21 @@ public class TransfertActivity extends SlideMenuActivity {
             A = multiplyScalar(A, (tas / sas));
             B = multiplyScalar(B, (tbs / sbs));
 
-           /* L = ones.mul(L);
-            A = ones.mul(A);
-            B = ones.mul(B);*/
-
-          /*  L = L.mul(multiplyScalar(ones, (tls / sls)));
-            A = A.mul(multiplyScalar(ones, (tas / sas)));
-            B = B.mul(multiplyScalar(ones, (tbs / sbs)));
-*/
-
-
-            /*Core.multiply(ones, multiplyScalar(ones, (tls / sls)), L);
-            Core.multiply(ones, multiplyScalar(ones, (tas / sas)), A);
-            Core.multiply(ones, multiplyScalar(ones, (tbs / sbs)), B);*/
 
             Core.add(L,multiplyScalar(ones,slm), L);
             Core.add(A, multiplyScalar(ones,sam), A);
             Core.add(B,multiplyScalar(ones,sbm), B);
-            L = convert(L);
-            A = convert(A);
-            B = convert(B);
 
             Mat result = new Mat();
             ArrayList<Mat> list = new ArrayList<>();
-            list.add(0,L);             list.add(1,A);            list.add(2, B);
+            list.add(0,L);             list.add(1, A);            list.add(2, B);
 
             Core.merge(list, result);
+            result.convertTo(result,CvType.CV_8UC3);
+
             Imgproc.cvtColor(result, result, Imgproc.COLOR_Lab2RGB);
+
+
 
             // Find the correct scale value. It should be the power of 2.
             int size = 800;
@@ -200,11 +190,11 @@ public class TransfertActivity extends SlideMenuActivity {
     }
 
     private Mat convert(Mat L) {
-        Core.MinMaxLocResult minMax = Core.minMaxLoc(L);
-        double max = minMax.maxVal;
-        double min = minMax.minVal;
+//        Core.MinMaxLocResult minMax = Core.minMaxLoc(L);
+//        double max = minMax.maxVal;
+//        double min = minMax.minVal;
         Mat R = new Mat();
-        Core.normalize(L,R,0,255,Core.NORM_MINMAX,CvType.CV_8U);
+        Core.normalize(L,R,0.0,255.0,Core.NORM_MINMAX,CvType.CV_8U);
 //        L.convertTo(R,CvType.CV_8UC1,255.0 / (max - min), - min * 255.0 / (max - min));
         return R;
     }

@@ -11,12 +11,12 @@
     >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
     <LinearLayout
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
@@ -26,7 +26,12 @@
             android:layout_height="150dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/mer"
-            android:onClick="transfertChoseFromLibrary"/>
+            android:onClick="transfertChoseFromLibrary"
+            android:layout_marginBottom="3dp"/>
+        <ImageView
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:src="#ff78"/>
         <ImageView
             android:layout_marginLeft="10dp"
             android:tag="target"
@@ -34,18 +39,27 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/soleil"
-            android:onClick="transfertChoseFromLibrary"/>
+            android:onClick="transfertChoseFromLibrary"
+            android:layout_marginBottom="3dp"/>
     </LinearLayout>
         <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:src="#ff78"/>
+        <ImageView
+            android:layout_marginTop="15dp"
             android:id="@+id/transfertImageResult"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_gravity="center"
             android:src="@android:drawable/dark_header"/>
         <Button
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="compute"
+            android:background="#ff78"
+            android:textColor="#ffffff"
             android:onClick="computeTransfert"/>
     </LinearLayout>
 
