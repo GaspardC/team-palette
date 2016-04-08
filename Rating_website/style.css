@@ -1,0 +1,80 @@
+/* 	.class
+	#id
+	*/
+	
+body
+{
+	background-color:white;
+	
+}
+
+#mainwrapper
+{
+	text-align:center;
+}
+
+em
+{
+color: red;
+}
+
+h1
+{
+	color:blue;
+	text-align:center;
+	text-decoration:underline;
+}
+
+.link:visited
+{
+	color:gray;
+}
+
+.link:hover
+{
+	color:red;
+}
+
+
+
+/* Index */
+#wrongid
+{
+	color:red;
+	text-decoration:none;	
+}
+
+/* imagetest */
+
+#images
+{
+	text-align:center;
+	color:blue;
+		
+}
+
+#images div
+{	
+	display:inline-block;
+	width:45%;
+	border:1px solid black;
+	margin-bottom:4px;
+	padding:4px;
+}
+
+section
+{	
+	border:1px solid black;
+	padding:20px;
+	margin:30px;
+}
+
+#sectiontest
+{
+	color:white;
+	background:blue;
+	position:absolute;
+	left:40px;
+	right:40px;
+	top:500px;
+}
