@@ -58,10 +58,12 @@
                 <ImageView
 
                     android:layout_marginLeft="50dp"
+                    android:tag="0"
                     android:id="@+id/color1Selected"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
+                    android:onClick="modifyColorCliked"
                     />
                 <ImageView
 
@@ -70,6 +72,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
+                    android:tag="1"
+                    android:onClick="modifyColorCliked"
                     />
                 <ImageView
 
@@ -78,6 +82,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
+                    android:tag="2"
+                    android:onClick="modifyColorCliked"
                     />
                 <ImageView
 
@@ -86,6 +92,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
+                    android:tag="3"
+                    android:onClick="modifyColorCliked"
                     />
                 <ImageView
 
@@ -94,6 +102,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
+                    android:tag="4"
+                    android:onClick="modifyColorCliked"
                     />
             </LinearLayout>
 

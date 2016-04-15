@@ -3,7 +3,6 @@ package com.epfl.computational_photography.paletizer;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -12,9 +11,9 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.epfl.computational_photography.paletizer.ColorPIcker.ColorPickerDialog;
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
 import com.epfl.computational_photography.paletizer.palette_database.Color;
-import com.epfl.computational_photography.paletizer.palette_database.Demo;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
 
 import java.util.ArrayList;
@@ -26,6 +25,11 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
     private ListView mListView;
     private ArrayList<Palette> paletteArrayList;
     private PaletteAdapterList paletteAdapter;
+    private Palette plClicked;
+    private TextView namePalSel;
+    private ImageView col1Sel,col2Sel,col3Sel,col4Sel,col5Sel;
+    private View palSel;
+    private ArrayList<ImageView> listOfImageViewOfPalSelected;
 
 
     @Override
@@ -46,6 +50,28 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         paletteArrayList.add(new Palette("sea",new Color("f6fffa578"),new Color("f6345348"),new Color("0078ff78"),new Color("f67f22f8"),new Color("f6700888")));
 
         paletteAdapter =new PaletteAdapterList(StyleActivity.this, paletteArrayList);
+
+        setupListView();
+        setupPaletteSelected();
+
+    }
+
+    private void setupPaletteSelected() {
+         palSel = findViewById(R.id.palSelected_ll);
+
+         namePalSel = (TextView) palSel.findViewById(R.id.palName);
+         col1Sel = (ImageView) palSel.findViewById(R.id.color1Selected);
+         col2Sel = (ImageView) palSel.findViewById(R.id.color2Selected);
+         col3Sel = (ImageView) palSel.findViewById(R.id.color3Selected);
+         col4Sel = (ImageView) palSel.findViewById(R.id.color4Selected);
+         col5Sel = (ImageView) palSel.findViewById(R.id.color5Selected);
+
+
+    }
+
+    private void setupListView() {
+
+
         mListView.setAdapter(paletteAdapter);
 
         mListView.setTextFilterEnabled(true);
@@ -55,23 +81,11 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                Palette pl = (Palette) mListView.getAdapter().getItem(position);
-                View pal = findViewById(R.id.palSelected_ll);
-                if (pal != null) {
-                    TextView namePal = (TextView) pal.findViewById(R.id.palName);
-                    ImageView col1 = (ImageView) pal.findViewById(R.id.color1Selected);
-                    ImageView col2 = (ImageView) pal.findViewById(R.id.color2Selected);
-                    ImageView col3 = (ImageView) pal.findViewById(R.id.color3Selected);
-                    ImageView col4 = (ImageView) pal.findViewById(R.id.color4Selected);
-                    ImageView col5 = (ImageView) pal.findViewById(R.id.color5Selected);
+                plClicked = (Palette) mListView.getAdapter().getItem(position);
+                if (palSel != null) {
+                    setColorOfPalSelected(plClicked);
 
 
-                    namePal.setText(pl.name);
-                    col1.setBackgroundColor(android.graphics.Color.parseColor(pl.colors[0].toString()));
-                    col2.setBackgroundColor(android.graphics.Color.parseColor(pl.colors[1].toString()));
-                    col3.setBackgroundColor(android.graphics.Color.parseColor(pl.colors[2].toString()));
-                    col4.setBackgroundColor(android.graphics.Color.parseColor(pl.colors[3].toString()));
-                    col5.setBackgroundColor(android.graphics.Color.parseColor(pl.colors[4].toString()));
 
 
                     InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -82,6 +96,26 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
 
             }
         });
+
+    }
+
+    private void setColorOfPalSelected(Palette plClicked) {
+
+        listOfImageViewOfPalSelected = new ArrayList<ImageView>();
+        namePalSel.setText(plClicked.name);
+        col1Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[0].toString()));
+        col2Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[1].toString()));
+        col3Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[2].toString()));
+        col4Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[3].toString()));
+        col5Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[4].toString()));
+
+        listOfImageViewOfPalSelected.add(col1Sel);
+        listOfImageViewOfPalSelected.add(col2Sel);
+        listOfImageViewOfPalSelected.add(col3Sel);
+        listOfImageViewOfPalSelected.add(col4Sel);
+        listOfImageViewOfPalSelected.add(col5Sel);
+
+
     }
 
 
@@ -114,5 +148,29 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
     {
 
         return false;
+    }
+
+    public void modifyColorCliked(View view) {
+
+
+        //het the color cliked
+        final int pos = Integer.valueOf((String) view.getTag());
+        String col = plClicked.colors[ pos].toString();
+        ColorPickerDialog colorPickerDialog = new ColorPickerDialog(this, android.graphics.Color.parseColor(col), new ColorPickerDialog.OnColorSelectedListener() {
+
+            @Override
+            public void onColorSelected(int color) {
+                // modifiy color in palette
+                ImageView imSel = listOfImageViewOfPalSelected.get(pos);
+                String colorHex = Integer.toHexString(color);
+                colorHex = colorHex.replaceFirst("f","");
+                colorHex = colorHex.replaceFirst("f","#");
+
+                plClicked.colors[ pos] = new Color(colorHex);
+                imSel.setBackgroundColor(color);
+            }
+
+        });
+        colorPickerDialog.show();
     }
 }
