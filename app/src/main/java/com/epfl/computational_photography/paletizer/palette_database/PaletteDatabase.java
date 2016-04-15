@@ -1,9 +1,15 @@
 package com.epfl.computational_photography.paletizer.palette_database;
 
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class PaletteDatabase {
@@ -28,6 +34,12 @@ public class PaletteDatabase {
 		String cvsSplitBy = ",";
 		
 		try {
+
+
+//			FileInputStream fis = new FileInputStream("file:///src/main/raw//kuler1.csv");
+//			BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
+
+//			inputFile = "kuler1.csv";
 			br = new BufferedReader(new FileReader(inputFile));
 			while ((line = br.readLine()) != null) {
 

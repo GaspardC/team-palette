@@ -2,9 +2,9 @@ package com.epfl.computational_photography.paletizer.palette_database;
 
 public class Demo {
 	
-    public static void main(String[] args) {
+    public static void main() {
     	PaletteDatabase pdb = new PaletteDatabase();
-    	pdb.addFromFile("data/kuler2.csv");
+    	pdb.addFromFile("src/main/res/data/kuler1.csv");
     	//pdb.print();
     	
     	String word = "boat";
