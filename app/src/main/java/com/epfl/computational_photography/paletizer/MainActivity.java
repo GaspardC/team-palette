@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
+import com.epfl.computational_photography.paletizer.palette_database.Demo;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,6 @@ public class MainActivity extends SlideMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
 
