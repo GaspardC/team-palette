@@ -1,6 +1,8 @@
 package com.epfl.computational_photography.paletizer;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.epfl.computational_photography.paletizer.ColorPIcker.ColorPickerDialog;
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
@@ -32,12 +35,14 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
     private ArrayList<ImageView> listOfImageViewOfPalSelected;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style);
 //        Demo demo = new Demo();
 //        demo.main();
+
 
 
         mSearchView=(SearchView) findViewById(R.id.searchView1);
@@ -48,7 +53,7 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         paletteArrayList.add(new Palette("elephant",new Color("f6f45f78"),new Color("f63456ee8"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f6ff9888")));
         paletteArrayList.add(new Palette("palette",new Color("f99ffff7ff"),new Color("f63dd678"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f67ff800")));
         paletteArrayList.add(new Palette("sea",new Color("f6fffa578"),new Color("f6345348"),new Color("0078ff78"),new Color("f67f22f8"),new Color("f6700888")));
-
+        paletteArrayList.add(new Palette("....or extract a palette from an image",new Color("ffffffff")));
         paletteAdapter =new PaletteAdapterList(StyleActivity.this, paletteArrayList);
 
         setupListView();
@@ -82,15 +87,20 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
 
 
                 plClicked = (Palette) mListView.getAdapter().getItem(position);
-                if (palSel != null) {
-                    setColorOfPalSelected(plClicked);
+                if(position == paletteArrayList.size() -1 ){
+                    PhotoManager.choseFromLibrary(StyleActivity.this);
+
+                }else{
+                    if (palSel != null) {
+                        setColorOfPalSelected(plClicked);
 
 
 
 
-                    InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    im.hideSoftInputFromWindow(mSearchView.getWindowToken(), 0);
+                        InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        im.hideSoftInputFromWindow(mSearchView.getWindowToken(), 0);
 
+                    }
                 }
 
 
@@ -137,7 +147,6 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
 //            paletteAdapter.getFilter().filter(null);
         } else {
             paletteAdapter.getFilter().filter(newText);
-
 //            mListView.setFilterText(newText);
         }
         return true;
@@ -172,5 +181,37 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
 
         });
         colorPickerDialog.show();
+    }
+
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            // When an Image is picked from Library
+            if (requestCode == PaletizerApplication.RESULT_LOAD_IMG && resultCode == RESULT_OK
+                    && null != data) {
+                Bitmap libraryBitmap = PhotoManager.getBitmapFromLibrary(this, requestCode, resultCode, data);
+                if (libraryBitmap != null) {
+                    // Set the Image in ImageView after decoding the String
+//                    bitmapIm.setImageBitmap(libraryBitmap);
+
+                }
+            }
+
+            // When an Image is taken by Camera
+            if(requestCode == PaletizerApplication.TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
+
+                Bitmap cameraBitmap = PhotoManager.getBitmapFromCamera(this, requestCode, resultCode);
+                if (cameraBitmap != null) {
+//                    bitmapIm.setImageBitmap(cameraBitmap);
+                }
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
+                    .show();
+        }
+
     }
 }

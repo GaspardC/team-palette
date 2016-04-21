@@ -16,6 +16,15 @@ public class Palette {
 		return s.toLowerCase();
 	}
 
+	public Palette(String name0, Color c0) {
+		name = formatName(name0);
+		colors[0] = c0;
+		colors[1] = c0;
+		colors[2] = c0;
+		colors[3] = c0;
+		colors[4] = c0;
+	}
+
 	public Palette(String name0, Color c0, Color c1, Color c2, Color c3, Color c4) {
 		name = formatName(name0);
 		colors[0] = c0;

@@ -115,6 +115,8 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_150sdp"
             android:layout_centerHorizontal="true"
+            android:elevation="20dp"
+            android:translationZ="20dp"
             android:src="@drawable/original_mountain"
             android:id="@+id/imageStyleActivity"/>
         <TextView
