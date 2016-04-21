@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.epfl.computational_photography.paletizer.ColorPIcker.ColorPickerDialog;
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
 import com.epfl.computational_photography.paletizer.palette_database.Color;
+import com.epfl.computational_photography.paletizer.palette_database.Demo;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
+import com.epfl.computational_photography.paletizer.palette_database.PaletteDB;
 
 import java.util.ArrayList;
 
@@ -33,15 +35,16 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
     private ImageView col1Sel,col2Sel,col3Sel,col4Sel,col5Sel;
     private View palSel;
     private ArrayList<ImageView> listOfImageViewOfPalSelected;
-
+    private boolean changePhotoSource = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style);
-//        Demo demo = new Demo();
-//        demo.main();
+//
+//        PaletteDB pl = new PaletteDB(getApplicationContext());
+//        Palette[] palettes = pl.getPalette("sadness");
 
 
 
@@ -49,17 +52,23 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         mListView=(ListView) findViewById(R.id.listView1);
 
         paletteArrayList = new ArrayList<Palette>();
-        paletteArrayList.add(new Palette("boat",new Color("f6ffff78"),new Color("f6995678"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f67f4488")));
-        paletteArrayList.add(new Palette("elephant",new Color("f6f45f78"),new Color("f63456ee8"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f6ff9888")));
-        paletteArrayList.add(new Palette("palette",new Color("f99ffff7ff"),new Color("f63dd678"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f67ff800")));
-        paletteArrayList.add(new Palette("sea",new Color("f6fffa578"),new Color("f6345348"),new Color("0078ff78"),new Color("f67f22f8"),new Color("f6700888")));
-        paletteArrayList.add(new Palette("....or extract a palette from an image",new Color("ffffffff")));
-        paletteAdapter =new PaletteAdapterList(StyleActivity.this, paletteArrayList);
+//        paletteArrayList.add(new Palette("boat",new Color("f6ffff78"),new Color("f6995678"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f67f4488")));
+//        paletteArrayList.add(new Palette("elephant",new Color("f6f45f78"),new Color("f63456ee8"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f6ff9888")));
+//        paletteArrayList.add(new Palette("palette",new Color("f99ffff7ff"),new Color("f63dd678"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f67ff800")));
+//        paletteArrayList.add(new Palette("sea",new Color("f6fffa578"),new Color("f6345348"),new Color("0078ff78"),new Color("f67f22f8"),new Color("f6700888")));
+//        paletteArrayList.add(new Palette("....or extract a palette from an image",new Color("ffffffff")));
+//        for(int i = 0; i<palettes.length ; i++){
+//            paletteArrayList.add(palettes[i]);
+//        }
+//        paletteAdapter =new PaletteAdapterList(StyleActivity.this, paletteArrayList);
+//
+//        setupListView();
+//        setupPaletteSelected();
+        setupSearchView();
 
-        setupListView();
-        setupPaletteSelected();
 
     }
+
 
     private void setupPaletteSelected() {
          palSel = findViewById(R.id.palSelected_ll);
@@ -142,21 +151,40 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
     {
 
 
-        if (TextUtils.isEmpty(newText)) {
-            mListView.clearTextFilter();
-//            paletteAdapter.getFilter().filter(null);
-        } else {
-            paletteAdapter.getFilter().filter(newText);
-//            mListView.setFilterText(newText);
-        }
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query)
     {
+        if (TextUtils.isEmpty(query)) {
+            mListView.clearTextFilter();
+//            paletteAdapter.getFilter().filter(null);
+        } else {
+            searchInDB(query);
 
-        return false;
+//            paletteAdapter.getFilter().filter(query);
+            mListView.clearTextFilter();
+
+//            mListView.setFilterText(newText);
+        }
+        return true;
+    }
+    public void searchInDB(String query){
+
+        PaletteDB pl = new PaletteDB(getApplicationContext());
+        Palette[] palettes = pl.getPalette(query);
+        paletteArrayList = new ArrayList<>();
+        for(int i = 0; i<palettes.length ; i++){
+            paletteArrayList.add(palettes[i]);
+        }
+        paletteArrayList.add(new Palette("....or extract a palette from an image",new Color("ffffffff")));
+
+        paletteAdapter =new PaletteAdapterList(StyleActivity.this, paletteArrayList);
+
+        setupListView();
+        setupPaletteSelected();
+
     }
 
     public void modifyColorCliked(View view) {
@@ -193,8 +221,14 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
                     && null != data) {
                 Bitmap libraryBitmap = PhotoManager.getBitmapFromLibrary(this, requestCode, resultCode, data);
                 if (libraryBitmap != null) {
+                    if(changePhotoSource){
+                        ImageView im = (ImageView) findViewById(R.id.imageStyleActivity) ;
+                        if (im != null) {
+                            im.setImageBitmap(libraryBitmap);
+                        }
+
+                    }
                     // Set the Image in ImageView after decoding the String
-//                    bitmapIm.setImageBitmap(libraryBitmap);
 
                 }
             }
@@ -213,5 +247,11 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
                     .show();
         }
 
+    }
+
+
+    public void changePhotoSource(View view) {
+        PhotoManager.choseFromLibrary(StyleActivity.this);
+        changePhotoSource = true;
     }
 }
