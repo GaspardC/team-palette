@@ -3,6 +3,8 @@
     package="com.epfl.computational_photography.paletizer">
 
     <application
+        android:largeHeap="true"
+        android:vmSafeMode="true"
         android:allowBackup="true"
         android:debuggable="true"
         android:name=".PaletizerApplication"
