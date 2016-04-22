@@ -28,7 +28,7 @@ public class Extractor {
         Mat rgbMat = new Mat();
         Utils.bitmapToMat(source, rgbMat);
 
-        Imgproc.resize(rgbMat, rgbMat, new Size(400, 400));
+        Imgproc.resize(rgbMat, rgbMat, new Size(200, 200));
 
         int[] sampleCount = new int[grid_size];
         double[][] sampleSum = new double[grid_size][3];
