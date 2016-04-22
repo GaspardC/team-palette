@@ -22,27 +22,33 @@ public class PaletteDB {
 
     public Palette[] getPalette (String word){
         SemanticSuggestor ss = new SemanticSuggestor(word, pdb);
-        Palette[] semSuggestions = ss.getSuggestions(5);
-        if (semSuggestions == null)
+        Palette[] semSuggestions = ss.getSuggestions();
+        if (semSuggestions == null){
+            semSuggestions = new Palette[1];
+            semSuggestions[0] = new Palette("        sorry no match found for this keyword",new Color("ffffffff"));
             System.out.println("Found no suggestions");
+        }
         else
         {
+
             for(Palette p : semSuggestions) {
                 System.out.println(p);
                 //System.out.println(p.getTmpScore());
             }
 
         }
-        System.out.println("\n");
 
-        Palette pal = pdb.getDatabase().get(0);
-        System.out.println("=== Suggestions from the palette database -> by RGB L2 distance:");
-        System.out.println("For palette: " + pal);
-        System.out.println("--------------");
-        ColorspaceSuggestor cs = new ColorspaceSuggestor(pal, pdb);
+        //MAX SIZE
+        int maxSize = 7;
+        if(semSuggestions.length>maxSize){
+            Palette[] semSuggestionsBis = new Palette[maxSize];
+            for(int i=0;i<maxSize;i++){
+                semSuggestionsBis[i] = semSuggestions[i];
+            }
+            semSuggestions = semSuggestionsBis;
+        }
 
-        colSuggestions = cs.getSuggestions(5);
-        return colSuggestions;
+        return semSuggestions;
     }
 
 

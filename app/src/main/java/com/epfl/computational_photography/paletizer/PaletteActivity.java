@@ -13,6 +13,5 @@ public class PaletteActivity extends SlideMenuActivity {
         setContentView(R.layout.activity_palette);
 
         // Palette database demo
-        Demo.run(getApplicationContext());
     }
 }

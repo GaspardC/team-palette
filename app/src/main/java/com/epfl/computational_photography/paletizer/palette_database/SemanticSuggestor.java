@@ -68,7 +68,7 @@ public class SemanticSuggestor {
     public Palette[] getSuggestions() {
        	sortDatabase();
        	int count = 0;
-    	while(pdb.getDatabase().get(count).getTmpScore() < -7.) count++;
+    	while(pdb.getDatabase().get(count).getTmpScore() < -6.) count++;
     	
     	if (count == 0)
     		return null;

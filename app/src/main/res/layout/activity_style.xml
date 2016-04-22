@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:lib="http://schemas.android.com/apk/res-auto"
     tools:context=".StyleActivity"
     android:focusableInTouchMode="true"
     android:paddingBottom="15dp"
@@ -26,6 +27,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
+            />
+        <com.github.glomadrian.loadingballs.BallView
+            android:layout_margin="30dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            lib:balls="10"
+            lib:movement_cycle_time="2500"
+            lib:enable_size_animation="false"
+            lib:ball_colors="@array/colors"
+            lib:path="star"
+            lib:ball_size="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/loadingBalls"
+            android:visibility="gone"
             />
         <LinearLayout
             android:padding="5dp"

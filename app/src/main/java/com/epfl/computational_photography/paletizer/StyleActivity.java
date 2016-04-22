@@ -3,6 +3,7 @@ package com.epfl.computational_photography.paletizer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -161,7 +162,8 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
             mListView.clearTextFilter();
 //            paletteAdapter.getFilter().filter(null);
         } else {
-            searchInDB(query);
+//            searchInDB(query);
+            new DownloadFilesTask().execute(query);
 
 //            paletteAdapter.getFilter().filter(query);
             mListView.clearTextFilter();
@@ -171,6 +173,7 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         return true;
     }
     public void searchInDB(String query){
+
 
         PaletteDB pl = new PaletteDB(getApplicationContext());
         Palette[] palettes = pl.getPalette(query);
@@ -182,8 +185,8 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
 
         paletteAdapter =new PaletteAdapterList(StyleActivity.this, paletteArrayList);
 
-        setupListView();
-        setupPaletteSelected();
+
+
 
     }
 
@@ -254,4 +257,34 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         PhotoManager.choseFromLibrary(StyleActivity.this);
         changePhotoSource = true;
     }
+
+    private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
+        protected Long doInBackground(String... urls) {
+
+            searchInDB(urls[0]);
+            long i = 10;
+            return i;
+            }
+
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(Long result) {
+            com.github.glomadrian.loadingballs.BallView loadingBalls = (com.github.glomadrian.loadingballs.BallView) findViewById(R.id.loadingBalls);
+            if (loadingBalls != null) {
+                loadingBalls.setVisibility(View.GONE);
+            }
+            setupListView();
+            setupPaletteSelected();
+        }
+        protected void onPreExecute(){
+            com.github.glomadrian.loadingballs.BallView loadingBalls = (com.github.glomadrian.loadingballs.BallView) findViewById(R.id.loadingBalls);
+            if (loadingBalls != null) {
+                loadingBalls.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 }
+
+
