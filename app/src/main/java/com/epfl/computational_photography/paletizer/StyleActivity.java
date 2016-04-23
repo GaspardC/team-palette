@@ -43,9 +43,7 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style);
-//
-//        PaletteDB pl = new PaletteDB(getApplicationContext());
-//        Palette[] palettes = pl.getPalette("sadness");
+
 
 
 
@@ -181,7 +179,7 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         for(int i = 0; i<palettes.length ; i++){
             paletteArrayList.add(palettes[i]);
         }
-        paletteArrayList.add(new Palette("....or extract a palette from an image",new Color("ffffffff")));
+        paletteArrayList.add(new Palette("..or from an image",new Color("ffffffff")));
 
         paletteAdapter =new PaletteAdapterList(StyleActivity.this, paletteArrayList);
 
@@ -259,9 +257,9 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
     }
 
     private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
-        protected Long doInBackground(String... urls) {
+        protected Long doInBackground(String... query) {
 
-            searchInDB(urls[0]);
+            searchInDB(query[0]);
             long i = 10;
             return i;
             }
