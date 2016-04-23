@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -276,8 +277,10 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
 
                 Bitmap cameraBitmap = PhotoManager.getBitmapFromCamera(this, requestCode, resultCode);
                 if (cameraBitmap != null) {
-//                    bitmapIm.setImageBitmap(cameraBitmap);
-                }
+                    ImageView im = (ImageView) findViewById(R.id.imageStyleActivity) ;
+                    if (im != null) {
+                        im.setImageBitmap(cameraBitmap);
+                    }                }
             }
 
         } catch (Exception e) {
@@ -300,14 +303,15 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
                 setPaletteList(pal);
                 setupListView();
                 setupPaletteSelected();
-                buttonPlus.setVisibility(View.GONE);
             }
+            buttonPlus.setVisibility(View.GONE);
 
         }
 
     }
 
-
+    public void addPhotoByCam(View view) {
+        PhotoManager.takePhoto(this);    }
 
 
     private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
