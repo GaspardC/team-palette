@@ -30,7 +30,6 @@
         />
         <ImageView
 
-            android:layout_marginLeft="10dp"
             android:id="@+id/color2"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -38,7 +37,6 @@
             />
         <ImageView
 
-            android:layout_marginLeft="10dp"
             android:id="@+id/color3"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -46,7 +44,6 @@
             />
         <ImageView
 
-            android:layout_marginLeft="10dp"
             android:id="@+id/color4"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -54,7 +51,6 @@
             />
         <ImageView
 
-            android:layout_marginLeft="10dp"
             android:id="@+id/color5"
             android:layout_width="20dp"
             android:layout_height="20dp"

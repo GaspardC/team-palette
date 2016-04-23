@@ -2,6 +2,7 @@ package com.epfl.computational_photography.paletizer;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,14 @@ public class PaletteAdapterList extends BaseAdapter implements Filterable {
         holder.color4.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[3].toString()));
         holder.color5.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[4].toString()));
 
+
+        if(position == getCount() -1){
+            holder.name.setTypeface(null, Typeface.BOLD_ITALIC);
+        }
+        else{
+            holder.name.setTypeface(null, Typeface.NORMAL);
+
+        }
         return convertView;
 
     }

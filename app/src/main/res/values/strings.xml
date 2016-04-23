@@ -5,4 +5,5 @@
     <string name="openSlideMenu">openSlideMenu</string>
     <string name="closeSlideMenu">closeSlideMenu</string>
     <string name="Hello">Hello</string>
+    <string name="no_match">" no match "</string>
 </resources>

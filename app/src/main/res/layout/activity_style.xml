@@ -6,13 +6,17 @@
     xmlns:lib="http://schemas.android.com/apk/res-auto"
     tools:context=".StyleActivity"
     android:focusableInTouchMode="true"
-    android:paddingBottom="15dp"
 
     >
+
+
     <LinearLayout
+        android:id="@+id/llContainer"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+
 
         <SearchView
             android:focusableInTouchMode="false"
@@ -22,10 +26,10 @@
 
 
         <ListView
-            android:padding="5dp"
+            android:padding="2dp"
             android:id="@+id/listView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
 
             />
         <com.github.glomadrian.loadingballs.BallView
@@ -50,14 +54,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
             <TextView
                 android:layout_gravity="center_horizontal"
                 android:text="palette selected : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"/>
+                />
 
 
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -70,6 +81,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/colSelectedContainer">
+
                 <ImageView
 
                     android:layout_marginLeft="50dp"
@@ -81,8 +97,7 @@
                     android:onClick="modifyColorCliked"
                     />
                 <ImageView
-
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="2dp"
                     android:id="@+id/color2Selected"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -91,8 +106,7 @@
                     android:onClick="modifyColorCliked"
                     />
                 <ImageView
-
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="2dp"
                     android:id="@+id/color3Selected"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -101,8 +115,7 @@
                     android:onClick="modifyColorCliked"
                     />
                 <ImageView
-
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="2dp"
                     android:id="@+id/color4Selected"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -111,8 +124,7 @@
                     android:onClick="modifyColorCliked"
                     />
                 <ImageView
-
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="2dp"
                     android:id="@+id/color5Selected"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -120,6 +132,7 @@
                     android:tag="4"
                     android:onClick="modifyColorCliked"
                     />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -129,8 +142,6 @@
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_150sdp"
-            android:elevation="20dp"
-            android:translationZ="20dp"
             android:onClick="changePhotoSource"
             android:src="@drawable/original_mountain"
             android:id="@+id/imageStyleActivity"/>
@@ -140,12 +151,26 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:text="Click on the image to chose another one" />
-    </LinearLayout>
 
+
+    </LinearLayout>
+    <Button
+        android:visibility="gone"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentEnd="true"
+        android:text="+"
+        android:id="@+id/buttonMorePalette"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="seeMorePalette"/>
     <Button
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f278"
         android:textColor="#ffffff"

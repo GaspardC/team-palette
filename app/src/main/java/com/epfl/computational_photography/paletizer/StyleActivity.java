@@ -9,7 +9,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.epfl.computational_photography.paletizer.ColorPIcker.ColorPickerDialog;
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
+import com.epfl.computational_photography.paletizer.palette.extractor.Extractor;
 import com.epfl.computational_photography.paletizer.palette_database.Color;
 import com.epfl.computational_photography.paletizer.palette_database.Demo;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
@@ -27,16 +30,23 @@ import java.util.ArrayList;
 
 public class StyleActivity extends SlideMenuActivity implements SearchView.OnQueryTextListener {
 
+    static {
+        System.loadLibrary("opencv_java3"); //load opencv_java lib
+    }
     private SearchView mSearchView;
     private ListView mListView;
     private ArrayList<Palette> paletteArrayList;
     private PaletteAdapterList paletteAdapter;
     private Palette plClicked;
-    private TextView namePalSel;
     private ImageView col1Sel,col2Sel,col3Sel,col4Sel,col5Sel;
-    private View palSel;
+    private View palSel ;
+    private TextView namePalSel;
     private ArrayList<ImageView> listOfImageViewOfPalSelected;
     private boolean changePhotoSource = false;
+    private boolean extractPaletteFromImage = false;
+    private PaletteDB paletteDB;
+    private Button buttonPlus;
+
 
 
     @Override
@@ -44,8 +54,7 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style);
 
-
-
+        buttonPlus = (Button) findViewById(R.id.buttonMorePalette);
 
         mSearchView=(SearchView) findViewById(R.id.searchView1);
         mListView=(ListView) findViewById(R.id.listView1);
@@ -73,7 +82,8 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
          palSel = findViewById(R.id.palSelected_ll);
 
          namePalSel = (TextView) palSel.findViewById(R.id.palName);
-         col1Sel = (ImageView) palSel.findViewById(R.id.color1Selected);
+
+        col1Sel = (ImageView) palSel.findViewById(R.id.color1Selected);
          col2Sel = (ImageView) palSel.findViewById(R.id.color2Selected);
          col3Sel = (ImageView) palSel.findViewById(R.id.color3Selected);
          col4Sel = (ImageView) palSel.findViewById(R.id.color4Selected);
@@ -97,6 +107,7 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
                 plClicked = (Palette) mListView.getAdapter().getItem(position);
                 if(position == paletteArrayList.size() -1 ){
                     PhotoManager.choseFromLibrary(StyleActivity.this);
+                    extractPaletteFromImage = true;
 
                 }else{
                     if (palSel != null) {
@@ -132,7 +143,21 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         listOfImageViewOfPalSelected.add(col3Sel);
         listOfImageViewOfPalSelected.add(col4Sel);
         listOfImageViewOfPalSelected.add(col5Sel);
+    }
+    private void setColorOfPalSelected(int[] rgbCenters) {
 
+        setupPaletteSelected();
+        listOfImageViewOfPalSelected = new ArrayList<ImageView>();
+        namePalSel.setText("extracted palette");
+
+
+
+        LinearLayout colContainer = (LinearLayout) findViewById(R.id.colSelectedContainer);
+
+        for(int i = 0; i < colContainer.getChildCount(); i++) {
+            colContainer.getChildAt(i).setBackgroundColor(rgbCenters[i]);
+            listOfImageViewOfPalSelected.add((ImageView)colContainer.getChildAt(i));
+        }
 
     }
 
@@ -173,19 +198,25 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
     public void searchInDB(String query){
 
 
-        PaletteDB pl = new PaletteDB(getApplicationContext());
-        Palette[] palettes = pl.getPalette(query);
+        paletteDB = new PaletteDB(getApplicationContext());
+        Palette[] palettes = paletteDB.getPalette(query);
+
+        setPaletteList(palettes);
+
+
+
+
+
+    }
+
+    private void setPaletteList(Palette[] palettes) {
         paletteArrayList = new ArrayList<>();
         for(int i = 0; i<palettes.length ; i++){
             paletteArrayList.add(palettes[i]);
         }
-        paletteArrayList.add(new Palette("..or from an image",new Color("ffffffff")));
+        paletteArrayList.add(new Palette("..or add one from an image",new Color("ffffffff")));
 
-        paletteAdapter =new PaletteAdapterList(StyleActivity.this, paletteArrayList);
-
-
-
-
+        paletteAdapter = new PaletteAdapterList(StyleActivity.this, paletteArrayList);
     }
 
     public void modifyColorCliked(View view) {
@@ -223,11 +254,17 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
                 Bitmap libraryBitmap = PhotoManager.getBitmapFromLibrary(this, requestCode, resultCode, data);
                 if (libraryBitmap != null) {
                     if(changePhotoSource){
+                        changePhotoSource = false;
                         ImageView im = (ImageView) findViewById(R.id.imageStyleActivity) ;
                         if (im != null) {
                             im.setImageBitmap(libraryBitmap);
                         }
 
+                    }
+                    if(extractPaletteFromImage){
+                        extractPaletteFromImage = false;
+                        int[] rgbCenters = new Extractor().extract(libraryBitmap);
+                        setColorOfPalSelected(rgbCenters);
                     }
                     // Set the Image in ImageView after decoding the String
 
@@ -256,6 +293,23 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
         changePhotoSource = true;
     }
 
+    public void seeMorePalette(View view) {
+        if(paletteDB != null){
+            Palette[] pal = paletteDB.getMorePalette();
+            if(pal!=null){
+                setPaletteList(pal);
+                setupListView();
+                setupPaletteSelected();
+                buttonPlus.setVisibility(View.GONE);
+            }
+
+        }
+
+    }
+
+
+
+
     private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
         protected Long doInBackground(String... query) {
 
@@ -270,16 +324,24 @@ public class StyleActivity extends SlideMenuActivity implements SearchView.OnQue
 
         protected void onPostExecute(Long result) {
             com.github.glomadrian.loadingballs.BallView loadingBalls = (com.github.glomadrian.loadingballs.BallView) findViewById(R.id.loadingBalls);
-            if (loadingBalls != null) {
+            ListView ll = (ListView) findViewById(R.id.listView1);
+            if (loadingBalls != null && ll!=null) {
                 loadingBalls.setVisibility(View.GONE);
+                ll.setVisibility(View.VISIBLE);
+                buttonPlus.setVisibility(View.VISIBLE);
+
             }
             setupListView();
             setupPaletteSelected();
         }
         protected void onPreExecute(){
             com.github.glomadrian.loadingballs.BallView loadingBalls = (com.github.glomadrian.loadingballs.BallView) findViewById(R.id.loadingBalls);
-            if (loadingBalls != null) {
+            ListView ll = (ListView) findViewById(R.id.listView1);
+            if (loadingBalls != null && ll!=null) {
+                ll.setVisibility(View.GONE);
                 loadingBalls.setVisibility(View.VISIBLE);
+                buttonPlus.setVisibility(View.GONE);
+
             }
         }
     }

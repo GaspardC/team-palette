@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1597751dbdc2d03648f51c1c09f930671384dd7e">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_3f6e07ab3b3c4ce615c445086aca519f359f727a.jar" />
+    </item>
+
+</items>

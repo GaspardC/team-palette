@@ -78,9 +78,6 @@ public class MainActivity extends SlideMenuActivity {
         startActivity(newActivity);    }
 
 
-    public void goToPaletteActivity(View view) {
-        Intent newActivity = new Intent(this, PaletteActivity.class);
-        startActivity(newActivity);    }
 
     public void goToStyleActivity(View view) {
         Intent newActivity = new Intent(this, StyleActivity.class);
