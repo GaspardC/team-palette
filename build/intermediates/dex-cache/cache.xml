@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
-
-    <item
-        jar="F:\Perso Etienne\Documents\Cours\Computational Photography\Interface\team-palette\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="1b38943f3b4b5b8b286ba9f462d5fbe7c3158a10">
-        <dex dex="F:\Perso Etienne\Documents\Cours\Computational Photography\Interface\team-palette\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4bd1b50923261c4e1bd5a978b8ebfd15cfbe4dec\classes.dex" />
-    </item>
-
-</items>
+<items version="2" />
