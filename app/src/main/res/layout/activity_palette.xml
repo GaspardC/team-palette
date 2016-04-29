@@ -152,13 +152,15 @@
                     android:onClick="addPhotoByCam"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@android:drawable/ic_menu_camera"/>
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/camera_icon"/>
                 <ImageView
+                    android:tint="@color/colorPrimary"
                     android:layout_marginLeft="20dp"
                     android:onClick="changePhotoSource"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@android:drawable/arrow_down_float"/>
+                    android:src="@drawable/library_icon"/>
             </LinearLayout>
 
 
