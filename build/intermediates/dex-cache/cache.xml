@@ -2,11 +2,102 @@
 <items version="2" >
 
     <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.3.0_aff44fc25df66287689db689920918cf1bc094c2/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/exploded-aar/com.intuit.sdp/sdp-android/1.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="5831c1517a9c80bf19a6b76ad23b898a7d827c0f">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.intuit.sdp-sdp-android-1.0.2_3a3184689d4fccb34699afe15f6bb52120aac1c7/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.3.0_2ce88bd0511ae7c752e6685eccd3f454a96dbd97/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a8ef1ffc9735c40f81e8199f4fe29a00ee37e920">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_1781adc90b8822e4d6914fc241fc8ebf851abcf9/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/.gradle/caches/modules-2/files-2.1/org.sqldroid/sqldroid/1.0.3/e163bbc80e2c7b99d7f20cffa36fd5b25996975/sqldroid-1.0.3.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="0e163bbc80e2c7b99d7f20cffa36fd5b25996975">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/sqldroid-1.0.3_803498e99c5a7095f56f44dbc86111ae1e9c6b1b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/libs/jawjaw.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="24cbecd61c7cac898178be334cc99f7dfcc92319">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/2/jawjaw_d421577f88840a45e96d9503cbcf2fbb8a7b92c1/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.3.0/support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.3.0_65a4b68b4100ea45fba1eb9d87e2bb532b56f5bd/classes.dex" />
+    </item>
+    <item
         jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="1597751dbdc2d03648f51c1c09f930671384dd7e">
-        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_3f6e07ab3b3c4ce615c445086aca519f359f727a.jar" />
+        sha1="c3f285be1c486ec879f611b31778ee1a1975fc6a">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_3f6e07ab3b3c4ce615c445086aca519f359f727a/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.3.0_4a18ca5cb9527388bc0fc72b4c17106539cf7e72/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/libs/ws4j.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="c798147459c5593750992bf2badad8f1dde19587">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/2/ws4j_c79b0f9b13d4efac0179f6109e8f5fd9e1c4f422/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/exploded-aar/com.github.glomadrian/loadingballs/1.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="27f7d734ebeca1607740670bd03eb173e5c07bdd">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.glomadrian-loadingballs-1.1_6048be6677b3367a61dd82ccd12057e22957deb9/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.3.0_e65849625edc77a3595d2744a150ebea11061841/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/exploded-aar/com.github.chenupt.android/dragtoplayout/1.2.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="5d5d5ac7204a49183f5d30f215fe431349cff26d">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.chenupt.android-dragtoplayout-1.2.1_9f9e26128468944b3cfad7c46512a6cf998025f5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="/Users/Gasp/Documents/EPFL/team-palette/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.3.0_a4403f2ddc6875a58b46fe18ff6c1741d05b6be8/classes.dex" />
     </item>
 
 </items>

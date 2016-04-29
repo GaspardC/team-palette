@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StyleActivity"
+        <activity android:name=".PaletteActivity"
             android:windowSoftInputMode="adjustPan"
             />
         <activity android:name=".TransfertActivity" />

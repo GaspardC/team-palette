@@ -1,23 +1,13 @@
 package com.epfl.computational_photography.paletizer;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
-import com.epfl.computational_photography.paletizer.palette_database.Demo;
-
-import java.io.File;
-import java.io.IOException;
 
 public class MainActivity extends SlideMenuActivity {
 
@@ -80,6 +70,6 @@ public class MainActivity extends SlideMenuActivity {
 
 
     public void goToStyleActivity(View view) {
-        Intent newActivity = new Intent(this, StyleActivity.class);
+        Intent newActivity = new Intent(this, PaletteActivity.class);
         startActivity(newActivity);    }
 }

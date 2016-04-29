@@ -19,7 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.epfl.computational_photography.paletizer.StyleActivity;
+import com.epfl.computational_photography.paletizer.PaletteActivity;
 import com.epfl.computational_photography.paletizer.TransfertActivity;
 import com.epfl.computational_photography.paletizer.MainActivity;
 import com.epfl.computational_photography.paletizer.R;
@@ -63,7 +63,7 @@ public abstract class SlideMenuActivity extends AppCompatActivity {
 
         //home
         slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, MainActivity.class));
-        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, StyleActivity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, PaletteActivity.class));
         slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, TransfertActivity.class));
 
 

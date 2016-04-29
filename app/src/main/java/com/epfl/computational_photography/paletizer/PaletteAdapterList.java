@@ -118,11 +118,15 @@ public class PaletteAdapterList extends BaseAdapter implements Filterable {
         }
 
         holder.name.setText(paletteArrayList.get(position).name);
-        holder.color1.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[0].toString()));
-        holder.color2.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[1].toString()));
-        holder.color3.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[2].toString()));
-        holder.color4.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[3].toString()));
-        holder.color5.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[4].toString()));
+        holder.color1.setColorFilter(Color.parseColor(paletteArrayList.get(position).colors[0].toString()));
+        holder.color2.setColorFilter(Color.parseColor(paletteArrayList.get(position).colors[1].toString()));
+        holder.color3.setColorFilter(Color.parseColor(paletteArrayList.get(position).colors[2].toString()));
+        holder.color4.setColorFilter(Color.parseColor(paletteArrayList.get(position).colors[3].toString()));
+        holder.color5.setColorFilter(Color.parseColor(paletteArrayList.get(position).colors[4].toString()));
+//        holder.color2.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[1].toString()));
+//        holder.color3.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[2].toString()));
+//        holder.color4.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[3].toString()));
+//        holder.color5.setBackgroundColor(Color.parseColor(paletteArrayList.get(position).colors[4].toString()));
 
 
         if(position == getCount() -1){
