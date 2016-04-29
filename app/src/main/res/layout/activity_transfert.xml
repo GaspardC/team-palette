@@ -7,9 +7,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TransfertActivity"
-    android:background="#ffff98"
     >
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -18,7 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="3dp">
         <ImageView
             android:tag="source"
             android:id="@+id/transfertSourceImage"
@@ -26,34 +29,81 @@
             android:layout_height="150dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/mer"
-            android:onClick="transfertChoseFromLibrary"
-            android:layout_marginBottom="3dp"/>
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageView
+                android:onClick="addPhotoByCamLeftFt"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/camera_icon"/>
+            <ImageView
+                android:tint="@color/colorPrimary"
+                android:layout_marginLeft="20dp"
+                android:onClick="addPhotoByLibLeftFt"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/library_icon"/>
+        </LinearLayout>
+
+    </LinearLayout>
         <ImageView
-            android:layout_width="3dp"
+            android:tint="@color/colorPrimary"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:src="#ff78"/>
-        <ImageView
+            android:src="@drawable/arrow_icon"/>
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+          <ImageView
             android:layout_marginLeft="10dp"
             android:tag="target"
             android:id="@+id/transfertTargetImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/soleil"
-            android:onClick="transfertChoseFromLibrary"
             android:layout_marginBottom="3dp"/>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="horizontal">
+              <ImageView
+                  android:onClick="addPhotoByCamRightFt"
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:tint="@color/colorPrimary"
+                  android:src="@drawable/camera_icon"/>
+              <ImageView
+                  android:tint="@color/colorPrimary"
+                  android:layout_marginLeft="20dp"
+                  android:onClick="addPhotoByLibRightFt"
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:src="@drawable/library_icon"/>
+          </LinearLayout>
+          </LinearLayout>
     </LinearLayout>
+
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:src="#ff78"/>
-        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/computeTransfertFast"
             android:layout_marginTop="15dp"
             android:id="@+id/transfertImageResult"
+            android:onClick="goFullScreen"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_gravity="center"
-            android:src="@android:drawable/dark_header"/>
+            />
         <Button
+            android:layout_marginBottom="10dp"
+            android:id="@+id/computeTransfertFast"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,7 +111,7 @@
             android:background="#ff78"
             android:textColor="#ffffff"
             android:onClick="computeTransfert"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

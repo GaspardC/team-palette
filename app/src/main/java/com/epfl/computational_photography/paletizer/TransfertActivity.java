@@ -19,6 +19,7 @@ import org.opencv.core.MatOfDouble;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -251,6 +252,44 @@ public class TransfertActivity extends SlideMenuActivity {
 */
 
         return m;
+
+    }
+
+    public void goFullScreen(View view) {
+        Intent newActivity = new Intent(this, FullScreenActivity.class);
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        bitmapResult.compress(Bitmap.CompressFormat.PNG, 100, bs);
+        newActivity.putExtra("byteArray", bs.toByteArray());
+        startActivity(newActivity);
+    }
+
+    public void addPhotoByCamLeftFt(View view) {
+        focusImage = (ImageView) findViewById(R.id.transfertSourceImage);
+        isSource = true;
+        PhotoManager.takePhoto(this);
+
+
+    }
+
+    public void addPhotoByLibRightFt(View view) {
+        focusImage = (ImageView) findViewById(R.id.transfertTargetImage);
+        isSource = false;
+        PhotoManager.choseFromLibrary(this);
+
+    }
+
+    public void addPhotoByCamRightFt(View view) {
+        focusImage = (ImageView) findViewById(R.id.transfertTargetImage);
+        isSource = false;
+        PhotoManager.takePhoto(this);
+
+    }
+
+    public void addPhotoByLibLeftFt(View view) {
+        focusImage = (ImageView) findViewById(R.id.transfertSourceImage);
+        isSource = true;
+        PhotoManager.choseFromLibrary(this);
+
 
     }
 }

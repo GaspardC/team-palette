@@ -29,7 +29,7 @@
             android:padding="2dp"
             android:id="@+id/listView1"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="150dp"
 
             />
         <com.github.glomadrian.loadingballs.BallView
@@ -135,14 +135,14 @@
 
         <ImageView
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
+            android:onClick="goFullScreenPalette"
             android:layout_height="@dimen/_150sdp"
-            android:src="@drawable/original_mountain"
+            android:src="@drawable/soleil"
             android:id="@+id/imageStyleActivity"/>
 
 
-            <!--top view-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,8 +169,7 @@
 
     </LinearLayout>
     <Button
-        android:visibility="gone"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="160dp"
         android:layout_marginRight="5dp"
         android:layout_alignParentEnd="true"
         android:text="+"

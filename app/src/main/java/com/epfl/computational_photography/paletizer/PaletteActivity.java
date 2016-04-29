@@ -1,10 +1,15 @@
 package com.epfl.computational_photography.paletizer;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,7 +29,9 @@ import com.epfl.computational_photography.paletizer.palette_database.Color;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
 import com.epfl.computational_photography.paletizer.palette_database.PaletteDB;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQueryTextListener {
@@ -45,7 +52,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private boolean extractPaletteFromImage = false;
     private PaletteDB paletteDB;
     private Button buttonPlus;
-
+    private boolean popedUp = false;
 
 
     @Override
@@ -213,6 +220,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         for(int i = 0; i<palettes.length ; i++){
             paletteArrayList.add(palettes[i]);
         }
+
         paletteArrayList.add(new Palette("..or add one from an image",new Color("ffffffff")));
 
         paletteAdapter = new PaletteAdapterList(PaletteActivity.this, paletteArrayList);
@@ -312,6 +320,17 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         PhotoManager.takePhoto(this);
     }
 
+    public void goFullScreenPalette(View view) {
+        ImageView im = (ImageView) findViewById(R.id.imageStyleActivity) ;
+        Bitmap bitmap = ((BitmapDrawable)im.getDrawable()).getBitmap();
+        Intent newActivity = new Intent(getApplicationContext(), FullScreenActivity.class);
+        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bs);
+        newActivity.putExtra("byteArray", bs.toByteArray());
+        startActivity(newActivity);
+
+    }
+
 
     private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
         protected Long doInBackground(String... query) {
@@ -336,8 +355,10 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             }
             setupListView();
             setupPaletteSelected();
+            if(!popedUp) popupIfNoResultFound();
         }
         protected void onPreExecute(){
+            popedUp = false;
             com.github.glomadrian.loadingballs.BallView loadingBalls = (com.github.glomadrian.loadingballs.BallView) findViewById(R.id.loadingBalls);
             ListView ll = (ListView) findViewById(R.id.listView1);
             if (loadingBalls != null && ll!=null) {
@@ -346,6 +367,34 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
                 buttonPlus.setVisibility(View.GONE);
 
             }
+        }
+    }
+
+    private void popupIfNoResultFound() {
+
+        if(paletteArrayList.size() == 2){
+            popedUp = true;
+            new AlertDialog.Builder(PaletteActivity.this)
+                    .setTitle("No pertinent results found..")
+                    .setMessage("but you can create a palette from Flickr or from an image :)")
+                    .setPositiveButton("Flickr", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setNegativeButton("Image", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            PhotoManager.choseFromLibrary(PaletteActivity.this);
+                            extractPaletteFromImage = true;
+                        }
+                    })
+                    .setNeutralButton("no thanks", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.btn_star)
+                    .show();
         }
     }
 }
