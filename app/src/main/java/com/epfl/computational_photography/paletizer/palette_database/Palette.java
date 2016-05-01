@@ -59,5 +59,15 @@ public class Palette {
 		this.descriptors.add(des);
 	}
 
+	public String toCSVString() {
+		String s1 =  name + "," + colors[0] + ","
+				+ colors[1] + ","
+				+ colors[2] + ","
+				+ colors[3] + ","
+				+ colors[4] + "\n";
+
+		return s1;
+	}
+
 	
 }

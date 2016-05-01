@@ -22,6 +22,20 @@ public class DatabaseConfig {
     public static File localWordNetDB = null;
     public static ILexicalDatabase db = new NictWordNet();
 
+    public static String paletteCSVversion = "kuler3_pos.csv";
+    public static File localPaletteCSV = null;
+
+    public static void preparePaletteCSV(Context ctx) {
+        System.out.println("Preparing Palette CSV...");
+        if (localPaletteCSV == null) {
+            localPaletteCSV = new File(ctx.getExternalFilesDir(null), paletteCSVversion);
+        }
+        if (!localPaletteCSV.exists()) {
+            extractPaletteCSVfromAssets(ctx);
+        }
+        System.out.println("Done preparing Palette CSV");
+    }
+
     public static void prepareWordNet(Context ctx) {
         System.out.println("Preparing Word Net...");
 
@@ -30,6 +44,7 @@ public class DatabaseConfig {
             Configuration.bd_path = localWordNetDB.getPath();
         }
 
+
         if (!localWordNetDB.exists()) {
             extractWordNetDBfromAssets(ctx);
         }
@@ -37,6 +52,40 @@ public class DatabaseConfig {
         bootWordNetSQL();
 
         System.out.println("Done Preparing Word Net");
+    }
+
+    public static void extractPaletteCSVfromAssets(Context ctx) {
+        System.out.println("Extracting Palette CSV from assets...");
+        AssetManager assetManager = ctx.getAssets();
+        InputStream in = null;
+        OutputStream out = null;
+
+        try {
+            in =  assetManager.open(paletteCSVversion);
+            out = new FileOutputStream(localPaletteCSV);
+            copyFile(in, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    // NOOP
+                }
+            }
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    // NOOP
+                }
+            }
+        }
+        System.out.println("CSV path : " + localPaletteCSV.getPath());
+        System.out.println("Done Extracting Palette CSV from assets");
+
     }
 
     public static void extractWordNetDBfromAssets(Context ctx) {
