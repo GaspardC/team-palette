@@ -3,9 +3,14 @@ package com.epfl.computational_photography.paletizer.palette_database;
 import android.content.Context;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class PaletteDatabase {
@@ -16,6 +21,7 @@ public class PaletteDatabase {
     public PaletteDatabase(Context context) {
         ctx = context;
         palettes = new ArrayList<Palette>();
+		DatabaseConfig.preparePaletteCSV(ctx);
     }
 	
 	public void addPalette(Palette p) {
@@ -26,14 +32,14 @@ public class PaletteDatabase {
 		return palettes;
 	}
 	
-	public void addFromFile(String inputFile) {
-        System.out.println("Loading " + inputFile + " database...");
+	public void addFromFile(File inputFile) {
+        System.out.println("Loading " + inputFile);
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
 		
 		try {
-            br = new BufferedReader(new InputStreamReader(ctx.getAssets().open(inputFile)));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
 			while ((line = br.readLine()) != null) {
 
 				String[] data = line.split(cvsSplitBy);
@@ -80,4 +86,24 @@ public class PaletteDatabase {
 		}
 	}
 
+	public void savePaletteInDatabase(Palette p) {
+		palettes.add(p);
+		FileWriter out = null;
+
+		try {
+			out = new FileWriter(DatabaseConfig.localPaletteCSV, true);
+			out.write(p.toCSVString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					// NOOP
+				}
+			}
+		}
+	}
 }

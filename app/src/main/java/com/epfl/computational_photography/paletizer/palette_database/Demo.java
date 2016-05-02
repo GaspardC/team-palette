@@ -10,7 +10,7 @@ public class Demo {
         DatabaseConfig.prepareWordNet(ctx);
 
         PaletteDatabase pdb = new PaletteDatabase(ctx);
-    	pdb.addFromFile("kuler3_pos.csv");
+    	pdb.addFromFile(DatabaseConfig.localPaletteCSV);
     	//pdb.print();
     	//System.out.println("\n");
     	

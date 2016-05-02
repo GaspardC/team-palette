@@ -26,6 +26,7 @@ import com.epfl.computational_photography.paletizer.ColorPIcker.ColorPickerDialo
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
 import com.epfl.computational_photography.paletizer.palette.extractor.Extractor;
 import com.epfl.computational_photography.paletizer.palette_database.Color;
+import com.epfl.computational_photography.paletizer.palette_database.FlickrInterface;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
 import com.epfl.computational_photography.paletizer.palette_database.PaletteDB;
 
@@ -201,18 +202,17 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         }
         return true;
     }
+
     public void searchInDB(String query){
-
-
+        /*
         paletteDB = new PaletteDB(getApplicationContext());
         Palette[] palettes = paletteDB.getPalette(query);
+        */
+         // This code uses Flickr
+        FlickrInterface flickr = new FlickrInterface();
+        Palette[] palettes = flickr.getPalettesFromQuery(query, 5);
 
         setPaletteList(palettes);
-
-
-
-
-
     }
 
     private void setPaletteList(Palette[] palettes) {
