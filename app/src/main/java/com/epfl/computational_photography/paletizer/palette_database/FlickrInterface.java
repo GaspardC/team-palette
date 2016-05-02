@@ -17,6 +17,9 @@ import org.json.JSONException;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -29,15 +32,30 @@ public class FlickrInterface {
     private String sharedSecret = "a469926564f14847";
     private Flickr f = null;
     private PhotosInterface photosInterface = null;
+    private REST transport;
 
     public FlickrInterface() {
         try {
-            f = new Flickr(apiKey, sharedSecret, new REST());
+            transport = new REST();
+            f = new Flickr(apiKey, sharedSecret, transport);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
 
         photosInterface = f.getPhotosInterface();
+    }
+
+    private InputStream getThumbnailAsStream(Photo photo) throws IOException {
+        String urlStr = photo.getThumbnailUrl();
+
+        URL url = new URL(urlStr);
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        if(transport.isProxyAuth()) {
+            conn.setRequestProperty("Proxy-Authorization", "Basic " + transport.getProxyCredentials());
+        }
+
+        conn.connect();
+        return conn.getInputStream();
     }
 
     public Bitmap getBitmapFromPhoto(Photo photo) {
@@ -46,14 +64,13 @@ public class FlickrInterface {
         Bitmap image = null;
 
         try {
-            rawImageStream = photosInterface.getImageAsStream(photo, 10);
+            rawImageStream = getThumbnailAsStream(photo);
+            //rawImageStream = photosInterface.getImageAsStream(photo, 10);
             bis = new BufferedInputStream(rawImageStream);
             image = BitmapFactory.decodeStream(bis);
             bis.close();
             rawImageStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FlickrException e) {
             e.printStackTrace();
         }
 
