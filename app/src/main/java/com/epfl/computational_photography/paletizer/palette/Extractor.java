@@ -1,4 +1,4 @@
-package com.epfl.computational_photography.paletizer.palette.extractor;
+package com.epfl.computational_photography.paletizer.palette;
 
 
 import android.graphics.Bitmap;

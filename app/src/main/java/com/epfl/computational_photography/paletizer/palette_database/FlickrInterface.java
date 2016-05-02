@@ -3,7 +3,7 @@ package com.epfl.computational_photography.paletizer.palette_database;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.epfl.computational_photography.paletizer.palette.extractor.Extractor;
+import com.epfl.computational_photography.paletizer.palette.Extractor;
 import com.googlecode.flickrjandroid.Flickr;
 import com.googlecode.flickrjandroid.FlickrException;
 import com.googlecode.flickrjandroid.REST;

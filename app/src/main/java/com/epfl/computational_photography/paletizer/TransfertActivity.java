@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
-import com.epfl.computational_photography.paletizer.palette.extractor.Transferer;
+import com.epfl.computational_photography.paletizer.palette.Transferer;
 
 
 public class TransfertActivity extends SlideMenuActivity {
