@@ -203,7 +203,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         */
          // This code uses Flickr
         FlickrInterface flickr = new FlickrInterface();
-        Palette[] palettes = flickr.getPalettesFromQuery(query, 3);
+        Palette[] palettes = flickr.getPalettesFromQuery(query, 5);
 
         setPaletteList(palettes);
     }

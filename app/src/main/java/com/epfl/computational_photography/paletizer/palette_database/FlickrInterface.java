@@ -62,12 +62,12 @@ public class FlickrInterface {
 
     public PhotoList searchPhotos(String word, int nbResults) {
         SearchParameters searchParameters = new SearchParameters();
-        searchParameters.setText("desert");
+        searchParameters.setText(word);
         searchParameters.setSort(SearchParameters.RELEVANCE);
 
         PhotoList list = null;
         try {
-            list = photosInterface.search(searchParameters, 3, 0);
+            list = photosInterface.search(searchParameters, nbResults, 0);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FlickrException e) {
