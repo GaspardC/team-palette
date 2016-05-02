@@ -191,7 +191,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Apply this Palette"
-        android:enabled="false"
-        />
+        android:onClick="applyPalette"
+        android:id="@+id/applyPalette" />
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.epfl.computational_photography.paletizer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.epfl.computational_photography.paletizer.ColorPIcker.ColorPickerDialog;
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
 import com.epfl.computational_photography.paletizer.palette.extractor.Extractor;
+import com.epfl.computational_photography.paletizer.palette.extractor.Transferer;
 import com.epfl.computational_photography.paletizer.palette_database.Color;
 import com.epfl.computational_photography.paletizer.palette_database.FlickrInterface;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
@@ -46,7 +48,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private boolean extractPaletteFromImage = false;
     private PaletteDB paletteDB;
     private Button buttonPlus;
-
+    private int[] selectedColors;
 
 
     @Override
@@ -129,28 +131,21 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     }
 
     private void setColorOfPalSelected(Palette plClicked) {
-
-        listOfImageViewOfPalSelected = new ArrayList<ImageView>();
+        selectedColors = new int[plClicked.colors.length];
+        listOfImageViewOfPalSelected = new ArrayList<>();
         namePalSel.setText(plClicked.name);
-        col1Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[0].toString()));
-        col2Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[1].toString()));
-        col3Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[2].toString()));
-        col4Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[3].toString()));
-        col5Sel.setBackgroundColor(android.graphics.Color.parseColor(plClicked.colors[4].toString()));
-
-        listOfImageViewOfPalSelected.add(col1Sel);
-        listOfImageViewOfPalSelected.add(col2Sel);
-        listOfImageViewOfPalSelected.add(col3Sel);
-        listOfImageViewOfPalSelected.add(col4Sel);
-        listOfImageViewOfPalSelected.add(col5Sel);
+        LinearLayout colContainer = (LinearLayout) findViewById(R.id.colSelectedContainer);
+        for(int i = 0; i < colContainer.getChildCount(); i++) {
+            selectedColors[i] = plClicked.colors[i].toInt();
+            colContainer.getChildAt(i).setBackgroundColor(selectedColors[i]);
+            listOfImageViewOfPalSelected.add((ImageView)colContainer.getChildAt(i));
+        }
     }
     private void setColorOfPalSelected(int[] rgbCenters) {
 
         setupPaletteSelected();
-        listOfImageViewOfPalSelected = new ArrayList<ImageView>();
-        namePalSel.setText("extracted palette");
-
-
+        listOfImageViewOfPalSelected = new ArrayList<>();
+        namePalSel.setText("Extracted palette");
 
         LinearLayout colContainer = (LinearLayout) findViewById(R.id.colSelectedContainer);
 
@@ -158,7 +153,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             colContainer.getChildAt(i).setBackgroundColor(rgbCenters[i]);
             listOfImageViewOfPalSelected.add((ImageView)colContainer.getChildAt(i));
         }
-
+        selectedColors = rgbCenters;
     }
 
 
@@ -310,6 +305,19 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
     public void addPhotoByCam(View view) {
         PhotoManager.takePhoto(this);
+    }
+
+    public void applyPalette(View view) {
+        Bitmap source = Bitmap.createBitmap(selectedColors.length, 1, Bitmap.Config.ARGB_8888);
+        for (int i = 0; i < selectedColors.length; i++) {
+            source.setPixel(i, 0, selectedColors[i]);
+        }
+
+        ImageView im = (ImageView) findViewById(R.id.imageStyleActivity);
+        Bitmap target = ((BitmapDrawable) im.getDrawable()).getBitmap();
+
+        Bitmap result = new Transferer().transfer(source, target);
+        im.setImageBitmap(result);
     }
 
 
