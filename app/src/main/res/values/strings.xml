@@ -4,6 +4,6 @@
     <string name="main">main Activity</string>
     <string name="openSlideMenu">openSlideMenu</string>
     <string name="closeSlideMenu">closeSlideMenu</string>
-    <string name="Hello">Hello</string>
+    <string name="Hello">The EPFL palette app</string>
     <string name="no_match">" no match "</string>
 </resources>

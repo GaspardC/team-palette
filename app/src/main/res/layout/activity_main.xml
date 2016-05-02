@@ -9,86 +9,117 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f278"
+        android:background="#028cd4e2"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_270sdp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/original_mountain"
-            android:id="@+id/imageMainActivity"/>
-
+        <Button
+            android:layout_below="@+id/palette_transfert_button"
+            android:layout_width="match_parent"
+            android:textColor="#ffffff"
+            android:layout_height="20dp"
+            android:text="pallete tranfer"
+            android:background="#ff78"
+            android:onClick="goToStyleActivity"
+            android:textStyle="italic"
+            android:textAllCaps="false"
+            android:id="@+id/palette_transfer_text"
+            />
         <LinearLayout
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/llBottom"
-            android:orientation="horizontal"
-            android:layout_marginTop="40dp"
+            android:background="@color/colorPink"
             android:gravity="center"
+            android:onClick="goToStyleActivity"
+            android:id="@+id/palette_transfert_button"
+            android:layout_marginBottom="3dp"
             >
-            <Button
+            <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Style"
-                android:background="#ff78"
-                android:layout_marginRight="5dp"
-                android:onClick="goToStyleActivity"
-
+                android:layout_height="100dp"
+                android:src="@drawable/palette_icon_button"
+                android:onClick="goToPaletteActivity"
+                android:tint="@color/colorYellow"
                 />
-            <Button
-                android:layout_marginRight="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Transfert"
-                android:background="#ff78"
-                android:onClick="goToTransfertActivity"
-                />
-
         </LinearLayout>
+
+
         <LinearLayout
-            android:layout_margin="20dp"
-            android:id="@+id/llBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_below="@+id/palette_transfer_text"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:id="@+id/ll_container_fast_transfer"
             >
-            <Button
-                android:layout_marginLeft="@dimen/_30sdp"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:onClick="takeAPhoto"
-                android:background="@android:drawable/ic_menu_camera"/>
-            <TextView
-                android:layout_marginLeft="@dimen/_30sdp"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:textColor="#ffff"
-                android:text="OR"/>
 
-            <Button
-                android:layout_marginLeft="@dimen/_30sdp"
-                android:padding="10dp"
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="3dp">
+
+            <LinearLayout
+                android:layout_marginRight="1dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:layout_weight="1"
+                android:background="@color/colorPink"
+                android:gravity="center">
+                <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/static_transfert"
+                android:onClick="goToTransfertActivity_static"
+                    android:tint="@color/colorYellow"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPink"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:src="@drawable/live_transfert_icon"
+                    android:onClick="goToTransfertActivity_Live"
+                    android:tint="@color/colorYellow"
+
+                    />
+            </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <TextView
+                android:textStyle="italic"
+                android:gravity="center"
                 android:textColor="#ffffff"
-                android:onClick="choseFromLibrary"
+                android:layout_marginRight="1dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="fast transfer"
                 android:background="#ff78"
-                android:text="Choose from library"/>
+                android:padding="3dp"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

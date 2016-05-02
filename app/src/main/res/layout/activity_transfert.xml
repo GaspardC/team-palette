@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".TransfertActivity"
+    tools:context=".fastTranfer.TransferActivity"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/mer"
+            android:src="@drawable/soleil"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,6 +52,7 @@
 
     </LinearLayout>
         <ImageView
+            android:id="@+id/arrow_tranfert"
             android:tint="@color/colorPrimary"
             android:layout_width="30dp"
             android:layout_height="match_parent"
@@ -59,14 +60,15 @@
       <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:orientation="vertical">
+          android:orientation="vertical"
+          android:id="@+id/ll_container_img_right">
           <ImageView
             android:layout_marginLeft="10dp"
             android:tag="target"
             android:id="@+id/transfertTargetImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/soleil"
+            android:src="@drawable/mer"
             android:layout_marginBottom="3dp"/>
           <LinearLayout
               android:layout_width="match_parent"
@@ -90,14 +92,24 @@
           </LinearLayout>
     </LinearLayout>
 
+        <com.epfl.computational_photography.paletizer.fastTranfer.MySurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_240sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_above="@+id/computeTransfertFast"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            />
         <ImageView
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/computeTransfertFast"
             android:layout_marginTop="15dp"
             android:id="@+id/transfertImageResult"
             android:onClick="goFullScreen"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_240sdp"
             android:layout_gravity="center"
             />
         <Button
