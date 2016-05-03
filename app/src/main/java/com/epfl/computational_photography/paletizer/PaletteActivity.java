@@ -7,13 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,14 +26,11 @@ import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
 import com.epfl.computational_photography.paletizer.palette.Extractor;
 import com.epfl.computational_photography.paletizer.palette.Transferer;
 import com.epfl.computational_photography.paletizer.palette_database.Color;
-import com.epfl.computational_photography.paletizer.palette_database.FlickrInterface;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
 import com.epfl.computational_photography.paletizer.palette_database.PaletteDB;
-import com.github.glomadrian.loadingballs.BallView;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQueryTextListener {
@@ -54,10 +51,11 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private PaletteDB paletteDB;
     private Button buttonPlus;
     private boolean popedUp = false;
-    private Dialog dialog;
+    private Dialog dialogGenerate;
     private ImageView image;
     private int[] selectedColors;
     private ImageView col1Sel,col2Sel,col3Sel,col4Sel,col5Sel;
+    private Dialog dialogEditName;
 
 
     @Override
@@ -319,6 +317,10 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         im.setImageBitmap(result);
     }
 
+    public void editNamePalette(View view) {
+        showCustomDialogEditName();
+    }
+
 
     private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
         protected Long doInBackground(String... query) {
@@ -364,54 +366,86 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
         if(paletteArrayList.size() == 2){
             popedUp = true;
-            showCustomDialog();
+            showCustomDialogGenerate();
 
         }
     }
 
-    protected void showCustomDialog() {
+    protected void showCustomDialogGenerate() {
 
-        dialog = new Dialog(PaletteActivity.this,
+        dialogGenerate = new Dialog(PaletteActivity.this,
                 android.R.style.Theme_Translucent);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogGenerate.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        dialog.setCancelable(true);
-        dialog.setContentView(R.layout.dialog);
+        dialogGenerate.setCancelable(true);
+        dialogGenerate.setContentView(R.layout.dialog_generate_new_palettes);
 
 
-        dialog.show();
-        ImageView lib = (ImageView) dialog.findViewById(R.id.popup_extract_lib);
+        dialogGenerate.show();
+        ImageView lib = (ImageView) dialogGenerate.findViewById(R.id.popup_extract_lib);
         lib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialogGenerate.hide();
                 PhotoManager.choseFromLibrary(PaletteActivity.this);
                 extractPaletteFromImage = true;
             }
         });
-        ImageView cam = (ImageView) dialog.findViewById(R.id.popup_extract_cam);
+        ImageView cam = (ImageView) dialogGenerate.findViewById(R.id.popup_extract_cam);
         cam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.hide();
+                dialogGenerate.hide();
                 PhotoManager.takePhoto(PaletteActivity.this);
                 extractPaletteFromImage = true;
             }
         });
 
-        ImageView flickr = (ImageView) dialog.findViewById(R.id.flickr_button);
+        ImageView flickr = (ImageView) dialogGenerate.findViewById(R.id.flickr_button);
         flickr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.hide();
+                dialogGenerate.hide();
             }
         });
-        Button noThks = (Button) dialog.findViewById(R.id.no_thanks_button);
+        Button noThks = (Button) dialogGenerate.findViewById(R.id.no_thanks_button);
         noThks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.hide();
+                dialogGenerate.hide();
             }
         });
+    }
+    protected void showCustomDialogEditName() {
+
+        dialogEditName = new Dialog(PaletteActivity.this,
+                android.R.style.Theme_Translucent);
+        dialogEditName.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialogEditName.setCancelable(true);
+        dialogEditName.setContentView(R.layout.dialog_edit_name_palette);
+
+
+        dialogEditName.show();
+        ImageView lib = (ImageView) dialogEditName.findViewById(R.id.validate_edit_name);
+        lib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText newName = (EditText) dialogEditName.findViewById(R.id.new_name_edit_palette);
+
+                setSelectedPalette(selectedColors, newName.getText().toString());
+                dialogEditName.hide();
+            }
+        });
+        ImageView cam = (ImageView) dialogEditName.findViewById(R.id.no_thanks_button_edit_name);
+        cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogGenerate.hide();
+            }
+        });
+
+
     }
 }
 

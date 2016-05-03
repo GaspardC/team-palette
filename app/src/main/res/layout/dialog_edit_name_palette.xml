@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bgdialog"
+    android:orientation="vertical" >
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter a new name"
+        android:textColor="@color/colorYellow"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <EditText
+        android:id="@+id/new_name_edit_palette"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="type a new name here"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_shape_rounded"
+            android:src="@drawable/validate_icon"
+            android:id="@+id/validate_edit_name"
+            android:tint="@color/colorPrimary"
+
+            />
+
+        <ImageView
+            android:textAllCaps="false"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/cross_icon"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/no_thanks_button_edit_name"
+            android:background="@drawable/button_shape_rounded"
+            android:tint="@color/colorPrimary"
+            />
+    </LinearLayout>
+
+
+
+</LinearLayout>
