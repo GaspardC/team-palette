@@ -128,6 +128,13 @@
                     android:tag="4"
                     android:onClick="modifyColorCliked"
                     />
+                <ImageView
+                    android:layout_width="@dimen/water_drop_size" android:layout_height="@dimen/water_drop_size"
+                    android:layout_marginTop="5dp"
+                    android:onClick="saveThePalette"
+                    android:src="@drawable/download_icon"
+                    android:tint="@color/colorPrimary"
+                        />
                 </LinearLayout>
             </LinearLayout>
 

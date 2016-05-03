@@ -67,6 +67,8 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         mListView=(ListView) findViewById(R.id.listView1);
 
         paletteArrayList = new ArrayList<Palette>();
+        palSel = findViewById(R.id.palSelected_ll);
+
 //        paletteArrayList.add(new Palette("boat",new Color("f6ffff78"),new Color("f6995678"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f67f4488")));
 //        paletteArrayList.add(new Palette("elephant",new Color("f6f45f78"),new Color("f63456ee8"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f6ff9888")));
 //        paletteArrayList.add(new Palette("palette",new Color("f99ffff7ff"),new Color("f63dd678"),new Color("0078ff78"),new Color("f67ffff8"),new Color("f67ff800")));
@@ -80,13 +82,14 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 //        setupListView();
 //        setupPaletteSelected();
         setupSearchView();
+        palSel.setVisibility(View.INVISIBLE);
+
 
 
     }
 
 
     private void setupPaletteSelected() {
-         palSel = findViewById(R.id.palSelected_ll);
 
          namePalSel = (TextView) palSel.findViewById(R.id.palName);
 
@@ -193,6 +196,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 //            paletteAdapter.getFilter().filter(null);
         } else {
 //            searchInDB(query);
+
             new DownloadFilesTask().execute(query);
 
 //            paletteAdapter.getFilter().filter(query);
@@ -204,13 +208,13 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     }
 
     public void searchInDB(String query){
-        /*
+
         paletteDB = new PaletteDB(getApplicationContext());
         Palette[] palettes = paletteDB.getPalette(query);
-        */
+
          // This code uses Flickr
-        FlickrInterface flickr = new FlickrInterface();
-        Palette[] palettes = flickr.getPalettesFromQuery(query, 5);
+//        FlickrInterface flickr = new FlickrInterface();
+//        Palette[] palettes = flickr.getPalettesFromQuery(query, 5);
 
         setPaletteList(palettes);
     }
@@ -331,6 +335,10 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
     }
 
+    public void saveThePalette(View view) {
+
+    }
+
 
     private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
         protected Long doInBackground(String... query) {
@@ -358,6 +366,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             if(!popedUp) popupIfNoResultFound();
         }
         protected void onPreExecute(){
+            palSel.setVisibility(View.VISIBLE);
             popedUp = false;
             com.github.glomadrian.loadingballs.BallView loadingBalls = (com.github.glomadrian.loadingballs.BallView) findViewById(R.id.loadingBalls);
             ListView ll = (ListView) findViewById(R.id.listView1);
