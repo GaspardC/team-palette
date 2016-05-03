@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class TransferActivity extends SlideMenuActivity {
     private ImageView imRes;
     private LinearLayout llRight;
     private ImageView arrowImg;
+    private Button computeButton;
 
 
     @Override
@@ -48,6 +50,7 @@ public class TransferActivity extends SlideMenuActivity {
         imRes = (ImageView) (findViewById(R.id.transfertImageResult));
         llRight = (LinearLayout) findViewById(R.id.ll_container_img_right);
         arrowImg = (ImageView) findViewById(R.id.arrow_tranfert);
+        computeButton = (Button) findViewById(R.id.computeTransfertFast);
 
         if(getIntent().getExtras() == null){
             statVisible();
@@ -69,6 +72,7 @@ public class TransferActivity extends SlideMenuActivity {
         imRes.setVisibility(View.GONE);
         llRight.setVisibility(View.GONE);
         arrowImg.setVisibility(View.GONE);
+        computeButton.setVisibility(View.GONE);
     }
 
     private void statVisible() {
@@ -76,6 +80,7 @@ public class TransferActivity extends SlideMenuActivity {
         imRes.setVisibility(View.VISIBLE);
         llRight.setVisibility(View.VISIBLE);
         arrowImg.setVisibility(View.VISIBLE);
+        computeButton.setVisibility(View.VISIBLE);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -120,8 +125,10 @@ public class TransferActivity extends SlideMenuActivity {
             return;
         }
         else{
+            statVisible();
             FastTransfer ft = new FastTransfer();
             bitmapResult = ft.computeTransfert(bitSource,bitTarget);
+            imRes.setImageBitmap(bitmapResult);
         }
 
     }
