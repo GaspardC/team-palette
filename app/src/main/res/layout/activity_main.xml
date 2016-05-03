@@ -23,7 +23,7 @@
             android:textColor="#ffffff"
             android:layout_height="20dp"
             android:text="pallete tranfer"
-            android:background="#ff78"
+            android:background="@color/colorPrimary"
             android:onClick="goToStyleActivity"
             android:textStyle="italic"
             android:textAllCaps="false"
@@ -33,7 +33,7 @@
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPink"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:onClick="goToStyleActivity"
             android:id="@+id/palette_transfert_button"
@@ -70,7 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorPink"
+                android:background="@color/colorPrimary"
                 android:gravity="center">
                 <ImageView
                 android:layout_width="@dimen/_50sdp"
@@ -86,7 +86,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorPink"
+                android:background="@color/colorPrimary"
                 android:gravity="center">
                 <ImageView
                     android:layout_width="@dimen/_50sdp"
@@ -113,7 +113,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="fast transfer"
-                android:background="#ff78"
+                android:background="@color/colorPrimary"
                 android:padding="3dp"/>
 
             </LinearLayout>
