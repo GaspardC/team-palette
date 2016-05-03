@@ -18,7 +18,11 @@ public class Color {
 	public String toString() {
 		return String.format("#%02X%02X%02X", r, g, b);
 	}
-	
+
+	public int toInt() {
+        return android.graphics.Color.rgb(r, g, b);
+    }
+
 	public double L2SquareDistanceTo(Color c) {
 		return (r - c.r)*(r - c.r) + (g - c.g)*(g - c.g) + (b - c.b)*(b - c.b);
 	}

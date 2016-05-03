@@ -6,6 +6,7 @@
     xmlns:lib="http://schemas.android.com/apk/res-auto"
     tools:context=".PaletteActivity"
     android:focusableInTouchMode="true"
+    android:background="@color/colorYellow"
 
     >
 
@@ -77,6 +78,7 @@
                 android:layout_gravity="center"
                 >
                 <TextView
+                    android:layout_marginTop="5dp"
                     android:id="@+id/palName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -95,6 +97,7 @@
                     android:layout_height="@dimen/water_drop_size"
                     android:layout_marginTop="5dp"
                     android:onClick="modifyColorCliked"
+                    android:src="@drawable/water_drop"
                     />
                 <ImageView
                     android:id="@+id/color2Selected"
@@ -103,6 +106,8 @@
                     android:layout_marginTop="5dp"
                     android:tag="1"
                     android:onClick="modifyColorCliked"
+                    android:src="@drawable/water_drop"
+                    android:layout_marginLeft="@dimen/overlapp_margin"
                     />
                 <ImageView
                     android:id="@+id/color3Selected"
@@ -111,6 +116,8 @@
                     android:layout_marginTop="5dp"
                     android:tag="2"
                     android:onClick="modifyColorCliked"
+                    android:src="@drawable/water_drop"
+                    android:layout_marginLeft="@dimen/overlapp_margin"
                     />
                 <ImageView
                     android:id="@+id/color4Selected"
@@ -119,6 +126,8 @@
                     android:layout_marginTop="5dp"
                     android:tag="3"
                     android:onClick="modifyColorCliked"
+                    android:src="@drawable/water_drop"
+                    android:layout_marginLeft="@dimen/overlapp_margin"
                     />
                 <ImageView
                     android:id="@+id/color5Selected"
@@ -126,7 +135,9 @@
                     android:layout_height="@dimen/water_drop_size"
                     android:layout_marginTop="5dp"
                     android:tag="4"
+                    android:src="@drawable/water_drop"
                     android:onClick="modifyColorCliked"
+                    android:layout_marginLeft="@dimen/overlapp_margin"
                     />
                 <ImageView
                     android:layout_width="@dimen/water_drop_size"
@@ -200,7 +211,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Apply this Palette"
-        android:enabled="false"
-        />
+        android:onClick="applyPalette"
+        android:id="@+id/applyPalette" />
 
 </RelativeLayout>
