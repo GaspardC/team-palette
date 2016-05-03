@@ -29,7 +29,7 @@
             android:padding="2dp"
             android:id="@+id/listView1"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/_100sdp"
 
             />
         <com.github.glomadrian.loadingballs.BallView
@@ -129,8 +129,10 @@
                     android:onClick="modifyColorCliked"
                     />
                 <ImageView
-                    android:layout_width="@dimen/water_drop_size" android:layout_height="@dimen/water_drop_size"
+                    android:layout_width="@dimen/water_drop_size"
+                    android:layout_height="@dimen/water_drop_size"
                     android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
                     android:onClick="saveThePalette"
                     android:src="@drawable/download_icon"
                     android:tint="@color/colorPrimary"
@@ -186,7 +188,8 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/buttonshape"
-        android:onClick="seeMorePalette"/>
+        android:onClick="seeMorePalette"
+        />
     <Button
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"

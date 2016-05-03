@@ -4,10 +4,10 @@
         android:radius="16dp"
         />
     <solid
-        android:color="@color/colorPrimary"
+        android:color="@color/colorYellow"
         />
     <size
-        android:width="30dp"
+        android:width="100dp"
         android:height="30dp"
         />
 </shape>

@@ -7,12 +7,14 @@
     tools:context="com.epfl.computational_photography.paletizer.FullScreenActivity">
 
     <ImageView
+        android:layout_marginTop="40dp"
         android:src="@drawable/splash_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fullScreenImage"
         />
     <ImageView
+        android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/palette_icon_button"

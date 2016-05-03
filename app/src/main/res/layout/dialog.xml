@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bgdialog"
+    android:orientation="vertical" >
+
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No result found"
+        android:textColor="@color/colorYellow"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/subtv"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="but you can create new palettes"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape_rounded"
+        android:src="@drawable/library_icon"
+        android:id="@+id/popup_extract_lib"
+        android:tint="@color/colorPrimary"
+
+        />
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape_rounded"
+        android:src="@drawable/camera_icon"
+        android:id="@+id/popup_extract_cam"
+        android:tint="@color/colorPrimary"
+
+
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape_rounded"
+        android:src="@drawable/flickr_icon"
+        android:tint="@color/colorPrimary"
+        android:id="@+id/flickr_button"
+        />
+        <Button
+            android:textAllCaps="false"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="no thanks"
+            android:textSize="10sp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/no_thanks_button"
+            android:background="@drawable/button_shape_rounded"
+            />
+    </LinearLayout>
+
+
+
+</LinearLayout>

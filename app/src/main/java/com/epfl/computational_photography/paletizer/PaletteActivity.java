@@ -1,6 +1,7 @@
 package com.epfl.computational_photography.paletizer;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -54,6 +56,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private PaletteDB paletteDB;
     private Button buttonPlus;
     private boolean popedUp = false;
+    private Dialog dialog;
 
 
     @Override
@@ -359,6 +362,8 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
                 loadingBalls.setVisibility(View.GONE);
                 ll.setVisibility(View.VISIBLE);
                 buttonPlus.setVisibility(View.VISIBLE);
+                palSel.setVisibility(View.VISIBLE);
+
 
             }
             setupListView();
@@ -366,7 +371,6 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             if(!popedUp) popupIfNoResultFound();
         }
         protected void onPreExecute(){
-            palSel.setVisibility(View.VISIBLE);
             popedUp = false;
             com.github.glomadrian.loadingballs.BallView loadingBalls = (com.github.glomadrian.loadingballs.BallView) findViewById(R.id.loadingBalls);
             ListView ll = (ListView) findViewById(R.id.listView1);
@@ -383,28 +387,54 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
         if(paletteArrayList.size() == 2){
             popedUp = true;
-            new AlertDialog.Builder(PaletteActivity.this)
-                    .setTitle("No pertinent results found..")
-                    .setMessage("but you can create a palette from Flickr or from an image :)")
-                    .setPositiveButton("Flickr", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
+            showCustomDialog();
 
-                        }
-                    })
-                    .setNegativeButton("Image", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            PhotoManager.choseFromLibrary(PaletteActivity.this);
-                            extractPaletteFromImage = true;
-                        }
-                    })
-                    .setNeutralButton("no thanks", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // do nothing
-                        }
-                    })
-                    .setIcon(android.R.drawable.btn_star)
-                    .show();
         }
+    }
+
+    protected void showCustomDialog() {
+
+        dialog = new Dialog(PaletteActivity.this,
+                android.R.style.Theme_Translucent);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog);
+
+
+        dialog.show();
+        ImageView lib = (ImageView) dialog.findViewById(R.id.popup_extract_lib);
+        lib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoManager.choseFromLibrary(PaletteActivity.this);
+                extractPaletteFromImage = true;
+            }
+        });
+        ImageView cam = (ImageView) dialog.findViewById(R.id.popup_extract_cam);
+        cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.hide();
+                PhotoManager.takePhoto(PaletteActivity.this);
+                extractPaletteFromImage = true;
+            }
+        });
+
+        ImageView flickr = (ImageView) dialog.findViewById(R.id.flickr_button);
+        flickr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.hide();
+            }
+        });
+        Button noThks = (Button) dialog.findViewById(R.id.no_thanks_button);
+        noThks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.hide();
+            }
+        });
     }
 }
 
