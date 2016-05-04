@@ -6,7 +6,6 @@
     xmlns:lib="http://schemas.android.com/apk/res-auto"
     tools:context=".PaletteActivity"
     android:focusableInTouchMode="true"
-    android:background="@color/colorYellow"
 
     >
 
@@ -154,14 +153,67 @@
 
         </LinearLayout>
 
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          >
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:orientation="vertical"
+              android:background="@drawable/border_ll"
+              android:padding="3dp"
+              android:layout_marginLeft="10dp"
+              >
+              <ImageView
+                  android:tint="@color/colorPrimary"
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:src="@drawable/flickr_icon"
+                  android:onClick="flickerMode"
+                  />
+
+          </LinearLayout>
         <ImageView
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:onClick="goFullScreenPalette"
             android:layout_height="@dimen/_150sdp"
             android:src="@drawable/soleil"
             android:id="@+id/imageStyleActivity"/>
+
+          <LinearLayout
+              android:layout_gravity="end"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_marginRight="10dp"
+              android:orientation="vertical"
+              android:background="@drawable/border_ll"
+              android:padding="3dp"
+              >
+
+              <ImageView
+                  android:tint="@color/colorPrimary"
+                  android:layout_width="30dp"
+                 android:layout_height="30dp"
+                 android:src="@drawable/camera_icon"
+                  android:onClick="generateAPaletteCam"
+              />
+              <ImageView
+                  android:tint="@color/colorPrimary"
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:src="@drawable/library_icon"
+                  android:onClick="generateApaletteLib"
+                  />
+
+          </LinearLayout>
+
+
+      </RelativeLayout>
 
 
             <LinearLayout

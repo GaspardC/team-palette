@@ -42,6 +42,7 @@ public class MySurfaceView extends SurfaceView implements Callback, Camera.Previ
 
     private int mMultiplyColor;
     private ImageView img;
+    public Bitmap bitRes;
 
     public MySurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -154,7 +155,6 @@ public class MySurfaceView extends SurfaceView implements Callback, Camera.Previ
                 //canvas.drawBitmap(rgbints, 0, width, 0, 0, width, height, false, null);
 
 
-
                 canvas.drawBitmap(ft.computeTransfert(bitSource,Bitmap.createBitmap(rgbints, 0, width, width, height,
                         Bitmap.Config.RGB_565)),null, rectF, null);
                 // use some color filter
@@ -171,6 +171,11 @@ public class MySurfaceView extends SurfaceView implements Callback, Camera.Previ
                 mHolder.unlockCanvasAndPost(canvas);
             }
         }
+    }
+
+    public Bitmap getBitRes(){
+        return ft.computeTransfert(bitSource,Bitmap.createBitmap(rgbints, 0, width, width, height,
+                Bitmap.Config.RGB_565));
     }
 
 

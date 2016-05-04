@@ -32,7 +32,7 @@ public class TransferActivity extends SlideMenuActivity {
         System.loadLibrary("opencv_java3"); //load opencv_java lib
     }
 
-    private SurfaceView surfaceView;
+    private MySurfaceView surfaceView;
     private ImageView imRes;
     private LinearLayout llRight;
     private ImageView arrowImg;
@@ -48,7 +48,7 @@ public class TransferActivity extends SlideMenuActivity {
         bitTarget = ((BitmapDrawable)focusImage.getDrawable()).getBitmap();
         focusImage = (ImageView) findViewById(R.id.transfertSourceImage);
         bitSource = ((BitmapDrawable)focusImage.getDrawable()).getBitmap();
-        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+        surfaceView = (MySurfaceView) findViewById(R.id.surfaceView);
         imRes = (ImageView) (findViewById(R.id.transfertImageResult));
         llRight = (LinearLayout) findViewById(R.id.ll_container_img_right);
         arrowImg = (ImageView) findViewById(R.id.arrow_tranfert);
@@ -140,10 +140,14 @@ public class TransferActivity extends SlideMenuActivity {
            if(surfaceView.getVisibility() == View.GONE){
                surfaceView.setVisibility(View.VISIBLE);
                computeButton.setText("stop");
+               imRes.setVisibility(View.GONE);
+
            }else{
                surfaceView.setVisibility(View.GONE);
-               surfaceView.getHolder().getSurface().
                computeButton.setText("start");
+               bitmapResult = surfaceView.getBitRes();
+               imRes.setImageBitmap(bitmapResult);
+               imRes.setVisibility(View.VISIBLE);
            }
        }
 

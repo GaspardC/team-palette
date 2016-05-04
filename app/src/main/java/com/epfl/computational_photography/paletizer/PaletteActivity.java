@@ -26,14 +26,20 @@ import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
 import com.epfl.computational_photography.paletizer.palette.Extractor;
 import com.epfl.computational_photography.paletizer.palette.Transferer;
 import com.epfl.computational_photography.paletizer.palette_database.Color;
+import com.epfl.computational_photography.paletizer.palette_database.FlickrInterface;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
 import com.epfl.computational_photography.paletizer.palette_database.PaletteDB;
+import com.epfl.computational_photography.paletizer.palette_database.PaletteDatabase;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 
 public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQueryTextListener {
+
+    private static final String STRING_NORMAL_QUERY = "normal";
+    private static final String STRING_FLICKR_QUERY = "flickr";
+
 
     static {
         System.loadLibrary("opencv_java3"); //load opencv_java lib
@@ -50,12 +56,13 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private boolean extractPaletteFromImage = false;
     private PaletteDB paletteDB;
     private Button buttonPlus;
-    private boolean popedUp = false;
+    private String query = "";
     private Dialog dialogGenerate;
     private ImageView image;
     private int[] selectedColors;
     private ImageView col1Sel,col2Sel,col3Sel,col4Sel,col5Sel;
     private Dialog dialogEditName;
+    private String mode = STRING_NORMAL_QUERY;
 
 
     @Override
@@ -95,6 +102,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         paletteArrayList = new ArrayList<>();
         setupSearchView();
     }
+
 
     private void setupListView() {
         mListView.setAdapter(paletteAdapter);
@@ -144,6 +152,10 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             listOfImageViewOfPalSelected.add((ImageView)colContainer.getChildAt(i));
         }
     }
+    private Palette getSelectedPalette(){
+        Palette p = new Palette(namePalSel.getText().toString(),selectedColors);
+        return p;
+    }
 
     private void setupSearchView()
     {
@@ -167,30 +179,34 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 //            paletteAdapter.getFilter().filter(null);
         } else {
 //            searchInDB(query);
-            new DownloadFilesTask().execute(query);
-
+            if(!this.query.equals(query)){
+                String [] q = new String[2];
+                q[0] = query;
+                q[1] = STRING_NORMAL_QUERY;
+                new DownloadFilesTask().execute(q);
 //            paletteAdapter.getFilter().filter(query);
-            mListView.clearTextFilter();
+                mListView.clearTextFilter();
+                this.query = query;
+            }
+
 
 //            mListView.setFilterText(newText);
         }
         return true;
     }
 
-    public void searchInDB(String query){
+    public void searchInDB(String[] query){
 
         paletteDB = new PaletteDB(getApplicationContext());
-        Palette[] palettes = paletteDB.getPalette(query);
-
-         // This code uses Flickr
-//        FlickrInterface flickr = new FlickrInterface();
-//        Palette[] palettes = flickr.getPalettesFromQuery(query, 5);
-
-        // This code uses Flickr
-//        FlickrInterface flickr = new FlickrInterface();
-//        palettes = flickr.getPalettesFromQuery(query, 5);
-//        setPaletteList(palettes);
-
+        Palette[] palettes = null;
+        if(mode.equals(STRING_NORMAL_QUERY)){
+            palettes = paletteDB.getPalette(query[0]);
+        }
+        else{
+            // This code uses Flickr
+        FlickrInterface flickr = new FlickrInterface();
+        palettes = flickr.getPalettesFromQuery(query[0], 5);
+        }
         setPaletteList(palettes);
     }
 
@@ -215,20 +231,25 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             @Override
             public void onColorSelected(int color) {
                 // modifiy color in palette
+                String colorHex = colorIntToHex(color);
                 ImageView imSel = listOfImageViewOfPalSelected.get(pos);
-                String colorHex = Integer.toHexString(color);
-                colorHex = colorHex.replaceFirst("f","");
-                colorHex = colorHex.replaceFirst("f","#");
 
                 plClicked.colors[ pos] = new Color(colorHex);
                 imSel.setColorFilter(color);
 //                imSel.setBackgroundColor(color);
             }
 
+
+
         });
         colorPickerDialog.show();
     }
 
+    private String colorIntToHex(int color) {
+        String colorHex = Integer.toHexString(color);
+        colorHex = colorHex.replaceFirst("f","");
+        return  colorHex.replaceFirst("f","#");
+    }
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -261,8 +282,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -301,7 +321,8 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     }
 
     public void saveThePalette(View view) {
-
+        PaletteDatabase plDB = new PaletteDatabase(PaletteActivity.this);
+        plDB.savePaletteInDatabase(getSelectedPalette());
     }
 
     public void applyPalette(View view) {
@@ -321,10 +342,27 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         showCustomDialogEditName();
     }
 
+    public void generateApaletteLib(View view) {
+        palSel.setVisibility(View.VISIBLE);
+        PhotoManager.choseFromLibrary(PaletteActivity.this);
+        extractPaletteFromImage = true;
+    }
+
+
+    public void generateAPaletteCam(View view) {
+        palSel.setVisibility(View.VISIBLE);
+        PhotoManager.takePhoto(PaletteActivity.this);
+        extractPaletteFromImage = true;
+    }
+
+    public void flickerMode(View view) {
+        mode  = STRING_FLICKR_QUERY;
+    }
+
 
     private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
         protected Long doInBackground(String... query) {
-            searchInDB(query[0]);
+            searchInDB(query);
 
             return 10L;
         }
@@ -344,13 +382,12 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
             }
             setupListView();
+            popupIfNoResultFound();
             setupPaletteSelected();
-            if (!popedUp) popupIfNoResultFound();
         }
 
 
         protected void onPreExecute() {
-            popedUp = false;
             com.github.glomadrian.loadingballs.BallView loadingBalls = (com.github.glomadrian.loadingballs.BallView) findViewById(R.id.loadingBalls);
             ListView ll = (ListView) findViewById(R.id.listView1);
             if (loadingBalls != null && ll != null) {
@@ -364,57 +401,62 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
     private void popupIfNoResultFound() {
 
-        if(paletteArrayList.size() == 2){
-            popedUp = true;
-            showCustomDialogGenerate();
-
-        }
+            if(paletteArrayList.size() <3){
+                showCustomDialogGenerate();
+            }
     }
 
     protected void showCustomDialogGenerate() {
 
-        dialogGenerate = new Dialog(PaletteActivity.this,
-                android.R.style.Theme_Translucent);
-        dialogGenerate.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if(dialogGenerate == null || !dialogGenerate.isShowing() ) {
+            dialogGenerate = new Dialog(PaletteActivity.this,
+                    android.R.style.Theme_Translucent);
+            dialogGenerate.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        dialogGenerate.setCancelable(true);
-        dialogGenerate.setContentView(R.layout.dialog_generate_new_palettes);
+            dialogGenerate.setCancelable(true);
+            dialogGenerate.setContentView(R.layout.dialog_generate_new_palettes);
 
 
-        dialogGenerate.show();
-        ImageView lib = (ImageView) dialogGenerate.findViewById(R.id.popup_extract_lib);
-        lib.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogGenerate.hide();
-                PhotoManager.choseFromLibrary(PaletteActivity.this);
-                extractPaletteFromImage = true;
-            }
-        });
-        ImageView cam = (ImageView) dialogGenerate.findViewById(R.id.popup_extract_cam);
-        cam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogGenerate.hide();
-                PhotoManager.takePhoto(PaletteActivity.this);
-                extractPaletteFromImage = true;
-            }
-        });
+            dialogGenerate.show();
+            ImageView lib = (ImageView) dialogGenerate.findViewById(R.id.popup_extract_lib);
+            lib.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogGenerate.dismiss();
+                    PhotoManager.choseFromLibrary(PaletteActivity.this);
+                    extractPaletteFromImage = true;
+                }
+            });
+            ImageView cam = (ImageView) dialogGenerate.findViewById(R.id.popup_extract_cam);
+            cam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogGenerate.dismiss();
+                    PhotoManager.takePhoto(PaletteActivity.this);
+                    extractPaletteFromImage = true;
+                }
+            });
 
-        ImageView flickr = (ImageView) dialogGenerate.findViewById(R.id.flickr_button);
-        flickr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogGenerate.hide();
-            }
-        });
-        Button noThks = (Button) dialogGenerate.findViewById(R.id.no_thanks_button);
-        noThks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogGenerate.hide();
-            }
-        });
+            ImageView flickr = (ImageView) dialogGenerate.findViewById(R.id.flickr_button);
+            flickr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String [] q = new String[2];
+                    q[0] = query;
+                    mode = STRING_FLICKR_QUERY;
+                    new DownloadFilesTask().execute(q);
+                    dialogGenerate.dismiss();
+                    buttonPlus.setVisibility(View.INVISIBLE);
+                }
+            });
+            Button noThks = (Button) dialogGenerate.findViewById(R.id.no_thanks_button);
+            noThks.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogGenerate.dismiss();
+                }
+            });
+        }
     }
     protected void showCustomDialogEditName() {
 
