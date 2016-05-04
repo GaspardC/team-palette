@@ -208,8 +208,6 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             paletteArrayList.add(palette);
         }
 
-        paletteArrayList.add(new Palette("..or add one from an image",new Color("ffffffff")));
-
         paletteAdapter = new PaletteAdapterList(PaletteActivity.this, paletteArrayList);
     }
 
@@ -401,7 +399,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
     private void popupIfNoResultFound() {
 
-            if(paletteArrayList.size() <3){
+            if(paletteArrayList.size() <2){
                 showCustomDialogGenerate();
             }
     }
