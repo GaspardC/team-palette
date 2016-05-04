@@ -60,7 +60,6 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private Dialog dialogGenerate;
     private ImageView image;
     private int[] selectedColors;
-    private ImageView col1Sel,col2Sel,col3Sel,col4Sel,col5Sel;
     private Dialog dialogEditName;
     private String mode = STRING_NORMAL_QUERY;
 
@@ -91,14 +90,6 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private void setupPaletteSelected() {
 
          namePalSel = (TextView) palSel.findViewById(R.id.palName);
-
-        col1Sel = (ImageView) palSel.findViewById(R.id.color1Selected);
-         col2Sel = (ImageView) palSel.findViewById(R.id.color2Selected);
-         col3Sel = (ImageView) palSel.findViewById(R.id.color3Selected);
-         col4Sel = (ImageView) palSel.findViewById(R.id.color4Selected);
-         col5Sel = (ImageView) palSel.findViewById(R.id.color5Selected);
-
-
         paletteArrayList = new ArrayList<>();
         setupSearchView();
     }
@@ -356,7 +347,15 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     }
 
     public void flickerMode(View view) {
-        mode  = STRING_FLICKR_QUERY;
+        if(mode.equals(STRING_NORMAL_QUERY)){
+            mode  = STRING_FLICKR_QUERY;
+            ((ImageView) view).setColorFilter(getResources().getColor(R.color.colorPink));
+        }
+        else{
+            mode  = STRING_NORMAL_QUERY;
+            ((ImageView) view).setColorFilter(getResources().getColor(R.color.colorPrimary));
+        }
+        query = ""; //to reload
     }
 
 
