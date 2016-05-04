@@ -6,7 +6,7 @@
     xmlns:lib="http://schemas.android.com/apk/res-auto"
     tools:context=".PaletteActivity"
     android:focusableInTouchMode="true"
-
+    android:background="#f4f4d2"
     >
 
 
