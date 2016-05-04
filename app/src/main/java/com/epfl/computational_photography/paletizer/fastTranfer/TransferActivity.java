@@ -37,6 +37,7 @@ public class TransferActivity extends SlideMenuActivity {
     private LinearLayout llRight;
     private ImageView arrowImg;
     private Button computeButton;
+    private boolean stat;
 
 
     @Override
@@ -56,7 +57,7 @@ public class TransferActivity extends SlideMenuActivity {
         if(getIntent().getExtras() == null){
             statVisible();
         }else{
-            boolean stat = getIntent().getExtras().getBoolean("static");
+            stat = getIntent().getExtras().getBoolean("static");
             if(stat){
                 statVisible();
 
@@ -70,9 +71,10 @@ public class TransferActivity extends SlideMenuActivity {
         imRes.setVisibility(View.GONE);
         llRight.setVisibility(View.GONE);
         arrowImg.setVisibility(View.GONE);
-        computeButton.setVisibility(View.INVISIBLE);
         focusImage.setVisibility(View.VISIBLE);
         surfaceView.setVisibility(View.VISIBLE);
+        computeButton.setText("stop");
+
     }
 
     private void statVisible() {
@@ -81,7 +83,8 @@ public class TransferActivity extends SlideMenuActivity {
         imRes.setVisibility(View.VISIBLE);
         llRight.setVisibility(View.VISIBLE);
         arrowImg.setVisibility(View.VISIBLE);
-        computeButton.setVisibility(View.VISIBLE);
+        computeButton.setText("compute");
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -120,17 +123,29 @@ public class TransferActivity extends SlideMenuActivity {
     }
 
     public void computeTransfert(View view) {
-        if(bitSource == null || bitTarget == null){
-            Toast.makeText(this, "Chose 2 photos before", Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
+       if(stat){
+           if(bitSource == null || bitTarget == null){
+               Toast.makeText(this, "Chose 2 photos before", Toast.LENGTH_LONG)
+                       .show();
+               return;
+           }
+           else{
+               statVisible();
+               FastTransfer ft = new FastTransfer();
+               bitmapResult = ft.computeTransfert(bitSource,bitTarget);
+               imRes.setImageBitmap(bitmapResult);
+           }
+       }
         else{
-            statVisible();
-            FastTransfer ft = new FastTransfer();
-            bitmapResult = ft.computeTransfert(bitSource,bitTarget);
-            imRes.setImageBitmap(bitmapResult);
-        }
+           if(surfaceView.getVisibility() == View.GONE){
+               surfaceView.setVisibility(View.VISIBLE);
+               computeButton.setText("stop");
+           }else{
+               surfaceView.setVisibility(View.GONE);
+               surfaceView.getHolder().getSurface().
+               computeButton.setText("start");
+           }
+       }
 
     }
 
