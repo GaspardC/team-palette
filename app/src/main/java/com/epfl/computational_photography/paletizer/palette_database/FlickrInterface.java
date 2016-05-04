@@ -3,7 +3,7 @@ package com.epfl.computational_photography.paletizer.palette_database;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.epfl.computational_photography.paletizer.palette.extractor.Extractor;
+import com.epfl.computational_photography.paletizer.palette.Extractor;
 import com.googlecode.flickrjandroid.Flickr;
 import com.googlecode.flickrjandroid.FlickrException;
 import com.googlecode.flickrjandroid.REST;
@@ -97,11 +97,11 @@ public class FlickrInterface {
     }
 
     public Palette[] getPalettesFromQuery(String word, int nbResults) {
-        Palette[] res = new Palette[nbResults];
         PhotoList list = searchPhotos(word, nbResults);
+        Palette[] res = new Palette[list.size()];
         Extractor paletteExtractor = new Extractor();
 
-        for(int i = 0; i < nbResults; i++) {
+        for(int i = 0; i < list.size(); i++) {
             Bitmap image = getBitmapFromPhoto(list.get(i));
             int[] colors = paletteExtractor.extract(image);
             res[i] = paletteFromIntArray(word, colors);

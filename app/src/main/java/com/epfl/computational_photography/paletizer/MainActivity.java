@@ -1,13 +1,11 @@
 package com.epfl.computational_photography.paletizer;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
+import com.epfl.computational_photography.paletizer.fastTranfer.TransferActivity;
 
 public class MainActivity extends SlideMenuActivity {
 
@@ -19,57 +17,19 @@ public class MainActivity extends SlideMenuActivity {
     }
 
 
-    /**
-     * @param view when user click on the button Library
-     */
-    public void choseFromLibrary(View view) {
-        PhotoManager.choseFromLibrary(this);
-    }
-
-    public void takeAPhoto(View view) {
-        PhotoManager.takePhoto(this);
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            // When an Image is picked from Library
-            if (requestCode == PaletizerApplication.RESULT_LOAD_IMG && resultCode == RESULT_OK
-                    && null != data) {
-                Bitmap libraryBitmap = PhotoManager.getBitmapFromLibrary(this, requestCode, resultCode, data);
-                if (libraryBitmap != null) {
-                    ImageView imgView = (ImageView) findViewById(R.id.imageMainActivity);
-                    // Set the Image in ImageView after decoding the String
-                    imgView.setImageBitmap(libraryBitmap);
-                }
-            }
-
-            // When an Image is taken by Camera
-            if(requestCode == PaletizerApplication.TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
-
-                Bitmap cameraBitmap = PhotoManager.getBitmapFromCamera(this, requestCode, resultCode);
-                if (cameraBitmap != null) {
-                    ImageView preview = (ImageView) findViewById(R.id.imageMainActivity);
-                    preview.setImageBitmap(cameraBitmap);
-                }
-            }
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
-                    .show();
-        }
-
-    }
-
-
-
-    public void goToTransfertActivity(View view) {
-        Intent newActivity = new Intent(this, TransfertActivity.class);
-        startActivity(newActivity);    }
-
-
-
-    public void goToStyleActivity(View view) {
+    public void goToPaletteActivity(View view) {
         Intent newActivity = new Intent(this, PaletteActivity.class);
         startActivity(newActivity);    }
+
+    public void goToTransfertActivity_static(View view) {
+        Intent newActivity = new Intent(this, TransferActivity.class);
+        newActivity.putExtra("static",true);
+        startActivity(newActivity);
+    }
+
+    public void goToTransfertActivity_Live(View view) {
+        Intent newActivity = new Intent(this, TransferActivity.class);
+        newActivity.putExtra("static",false);
+        startActivity(newActivity);
+    }
 }

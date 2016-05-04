@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.epfl.computational_photography.paletizer.PaletteActivity;
-import com.epfl.computational_photography.paletizer.TransfertActivity;
+import com.epfl.computational_photography.paletizer.fastTranfer.TransferActivity;
 import com.epfl.computational_photography.paletizer.MainActivity;
 import com.epfl.computational_photography.paletizer.R;
 
@@ -62,9 +62,9 @@ public abstract class SlideMenuActivity extends AppCompatActivity {
 
 
         //home
-        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, MainActivity.class));
-        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, PaletteActivity.class));
-        slideMenuItems.add(new NavItem(getString(R.string.home), getString(R.string.main),android.R.drawable.ic_menu_camera, TransfertActivity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), "",R.drawable.home_icon, MainActivity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), "palette transfer",R.drawable.palette_icon_button, PaletteActivity.class));
+        slideMenuItems.add(new NavItem(getString(R.string.home), "simple color transfer",R.drawable.static_transfert, TransferActivity.class));
 
 
 
