@@ -62,6 +62,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private int[] selectedColors;
     private Dialog dialogEditName;
     private String mode = STRING_NORMAL_QUERY;
+    private Bitmap bitmapTarget;
 
 
     @Override
@@ -75,7 +76,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         palSel = findViewById(R.id.palSelected_ll);
         namePalSel = (TextView) palSel.findViewById(R.id.palName);
         image = (ImageView) findViewById(R.id.imageStyleActivity);
-
+        bitmapTarget = ((BitmapDrawable) image.getDrawable()).getBitmap();
         paletteArrayList = new ArrayList<Palette>();
         palSel = findViewById(R.id.palSelected_ll);
 
@@ -252,6 +253,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
                     if(changePhotoSource){
                         changePhotoSource = false;
                         image.setImageBitmap(libraryBitmap);
+                        bitmapTarget = libraryBitmap;
                     }
                     if(extractPaletteFromImage){
                         extractPaletteFromImage = false;
@@ -267,6 +269,8 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
                 Bitmap cameraBitmap = PhotoManager.getBitmapFromCamera(this, requestCode, resultCode);
                 if (cameraBitmap != null) {
                     image.setImageBitmap(cameraBitmap);
+                    bitmapTarget = cameraBitmap;
+
                 }
             }
 
@@ -322,9 +326,9 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         }
 
         ImageView im = (ImageView) findViewById(R.id.imageStyleActivity);
-        Bitmap target = ((BitmapDrawable) im.getDrawable()).getBitmap();
+//        Bitmap target = ((BitmapDrawable) im.getDrawable()).getBitmap();
 
-        Bitmap result = new Transferer().transfer(source, target);
+        Bitmap result = new Transferer().transfer(source, bitmapTarget);
         im.setImageBitmap(result);
     }
 

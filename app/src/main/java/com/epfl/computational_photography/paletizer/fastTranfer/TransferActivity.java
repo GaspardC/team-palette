@@ -112,6 +112,12 @@ public class TransferActivity extends SlideMenuActivity {
                 Bitmap cameraBitmap = PhotoManager.getBitmapFromCamera(this, requestCode, resultCode);
                 if (cameraBitmap != null) {
                     focusImage.setImageBitmap(cameraBitmap);
+                    if(isSource){
+                        bitSource = cameraBitmap;
+                    }
+                    else{
+                        bitTarget = cameraBitmap;
+                    }
                 }
             }
 
