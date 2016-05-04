@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewStructure;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,10 +43,10 @@ public class TransferActivity extends SlideMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfert);
-        focusImage = (ImageView) findViewById(R.id.transfertSourceImage);
-        bitSource = ((BitmapDrawable)focusImage.getDrawable()).getBitmap();
         focusImage = (ImageView) findViewById(R.id.transfertTargetImage);
         bitTarget = ((BitmapDrawable)focusImage.getDrawable()).getBitmap();
+        focusImage = (ImageView) findViewById(R.id.transfertSourceImage);
+        bitSource = ((BitmapDrawable)focusImage.getDrawable()).getBitmap();
         surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         imRes = (ImageView) (findViewById(R.id.transfertImageResult));
         llRight = (LinearLayout) findViewById(R.id.ll_container_img_right);
@@ -63,19 +64,19 @@ public class TransferActivity extends SlideMenuActivity {
                 liveVisible();
             }
         }
-
-
     }
 
     private void liveVisible() {
-        surfaceView.setVisibility(View.VISIBLE);
         imRes.setVisibility(View.GONE);
         llRight.setVisibility(View.GONE);
         arrowImg.setVisibility(View.GONE);
-        computeButton.setVisibility(View.GONE);
+        computeButton.setVisibility(View.INVISIBLE);
+        focusImage.setVisibility(View.VISIBLE);
+        surfaceView.setVisibility(View.VISIBLE);
     }
 
     private void statVisible() {
+        focusImage.setVisibility(View.VISIBLE);
         surfaceView.setVisibility(View.GONE);
         imRes.setVisibility(View.VISIBLE);
         llRight.setVisibility(View.VISIBLE);
