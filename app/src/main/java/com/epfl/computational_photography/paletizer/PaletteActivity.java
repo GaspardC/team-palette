@@ -314,6 +314,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     public void saveThePalette(View view) {
         PaletteDatabase plDB = new PaletteDatabase(PaletteActivity.this);
         plDB.savePaletteInDatabase(getSelectedPalette());
+        Toast.makeText(this,"palette saved",Toast.LENGTH_SHORT).show();
     }
 
     public void applyPalette(View view) {
