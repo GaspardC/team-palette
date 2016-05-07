@@ -143,6 +143,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 //            colContainer.getChildAt(i).setBackgroundColor(rgbCenters[i]);
             listOfImageViewOfPalSelected.add((ImageView)colContainer.getChildAt(i));
         }
+        applyPalette();
     }
     private Palette getSelectedPalette(){
         Palette p = new Palette(namePalSel.getText().toString(),selectedColors);
@@ -226,6 +227,8 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
                 plClicked.colors[ pos] = new Color(colorHex);
                 imSel.setColorFilter(color);
+                setColorOfPalSelected(plClicked);
+                applyPalette();
 //                imSel.setBackgroundColor(color);
             }
 
@@ -319,7 +322,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         Toast.makeText(this,"palette saved",Toast.LENGTH_SHORT).show();
     }
 
-    public void applyPalette(View view) {
+    public void applyPalette() {
         Bitmap source = Bitmap.createBitmap(selectedColors.length, 1, Bitmap.Config.ARGB_8888);
         for (int i = 0; i < selectedColors.length; i++) {
             source.setPixel(i, 0, selectedColors[i]);

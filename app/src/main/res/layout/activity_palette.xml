@@ -176,65 +176,41 @@
                   />
 
           </LinearLayout>
-        <ImageView
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:onClick="goFullScreenPalette"
-            android:layout_height="@dimen/_150sdp"
-            android:src="@drawable/soleil"
-            android:id="@+id/imageStyleActivity"/>
+
 
           <LinearLayout
-              android:layout_gravity="end"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_alignParentEnd="true"
               android:layout_marginRight="10dp"
-              android:orientation="vertical"
-              android:background="@drawable/border_ll"
               android:padding="3dp"
-              >
-
+              android:background="@drawable/border_ll"
+              android:orientation="vertical">
               <ImageView
-                  android:tint="@color/colorPrimary"
-                  android:layout_width="30dp"
-                 android:layout_height="30dp"
-                 android:src="@drawable/camera_icon"
-                  android:onClick="generateAPaletteCam"
-              />
-              <ImageView
-                  android:tint="@color/colorPrimary"
+                  android:onClick="addPhotoByCam"
                   android:layout_width="30dp"
                   android:layout_height="30dp"
-                  android:src="@drawable/library_icon"
-                  android:onClick="generateApaletteLib"
-                  />
-
+                  android:tint="@color/colorPrimary"
+                  android:src="@drawable/camera_icon"/>
+              <ImageView
+                  android:tint="@color/colorPrimary"
+                  android:onClick="changePhotoSource"
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:src="@drawable/library_icon"/>
           </LinearLayout>
 
+          <ImageView
+              android:layout_centerHorizontal="true"
+              android:layout_width="wrap_content"
+              android:onClick="goFullScreenPalette"
+              android:layout_height="@dimen/_130sdp"
+              android:src="@drawable/soleil"
+              android:id="@+id/imageStyleActivity"/>
 
       </RelativeLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <ImageView
-                    android:onClick="addPhotoByCam"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/camera_icon"/>
-                <ImageView
-                    android:tint="@color/colorPrimary"
-                    android:layout_marginLeft="20dp"
-                    android:onClick="changePhotoSource"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/library_icon"/>
-            </LinearLayout>
 
 
 
@@ -254,17 +230,57 @@
         android:background="@drawable/buttonshape"
         android:onClick="seeMorePalette"
         />
-    <Button
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+
+
+
+    <RelativeLayout
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f278"
-        android:textColor="#ffffff"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="Apply this Palette"
-        android:onClick="applyPalette"
-        android:id="@+id/applyPalette" />
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/generate_new_rl"
+        >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:padding="10dp"
+        android:textAllCaps="false"
+        android:text="Generate new palettes here : "
+        android:background="@color/colorPrimary"
+        android:textColor="#ffffff"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/border_ll"
+            android:padding="3dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            >
+
+            <ImageView
+                android:tint="@color/colorYellow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/camera_icon"
+                android:onClick="generateAPaletteCam"
+                android:layout_marginRight="20dp"
+                />
+            <ImageView
+                android:layout_marginRight="20dp"
+                android:tint="@color/colorYellow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/library_icon"
+                android:onClick="generateApaletteLib"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
