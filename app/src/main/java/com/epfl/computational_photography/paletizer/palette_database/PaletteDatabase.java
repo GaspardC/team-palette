@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import edu.cmu.lti.jawjaw.pobj.POS;
+
 public class PaletteDatabase {
 	
 	private ArrayList<Palette> palettes;
@@ -25,7 +27,7 @@ public class PaletteDatabase {
     }
 	
 	public void addPalette(Palette p) {
-		palettes.add(p);
+		if(palettes != null) palettes.add(p);
 	}
 	
 	public ArrayList<Palette> getDatabase() {
@@ -87,6 +89,13 @@ public class PaletteDatabase {
 	}
 
 	public void savePaletteInDatabase(Palette p) {
+		String[] words = p.name.split(" ");
+		Descriptor[] des = new Descriptor[words.length];
+		for (int i = 0; i < words.length; i++) {
+			des[i] = new Descriptor(words[i], "n");
+			p.addDescriptor(des[i]);
+		}
+
 		palettes.add(p);
 		FileWriter out = null;
 

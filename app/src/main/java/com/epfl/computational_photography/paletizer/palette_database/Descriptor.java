@@ -84,4 +84,7 @@ public class Descriptor {
 		return word + '(' + POS_to_string(pos) + ')';
 	}
 
+	public String toCSVString() {
+		return "," + word + "," + POS_to_string(pos);
+	}
 }

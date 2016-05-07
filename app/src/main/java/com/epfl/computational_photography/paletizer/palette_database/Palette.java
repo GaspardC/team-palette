@@ -20,20 +20,22 @@ public class Palette {
 		colors[2] = c0;
 		colors[3] = c0;
 		colors[4] = c0;
+		descriptors = new LinkedList<Descriptor>();
 	}
+
 	public Palette(String name0, int icolors[]){
 		name = formatName(name0);
 		for (int i = 0;i <5;i++){
 			colors[i] = new Color(colorIntToHex(icolors[i]));
 		}
-
+		descriptors = new LinkedList<Descriptor>();
 	}
+
 	private String colorIntToHex(int color) {
 		String colorHex = Integer.toHexString(color);
 		colorHex = colorHex.replaceFirst("f","");
 		return  colorHex.replaceFirst("f","#");
 	}
-
 
 	public Palette(String name0, Color c0, Color c1, Color c2, Color c3, Color c4) {
 		name = formatName(name0);
@@ -72,13 +74,18 @@ public class Palette {
 	}
 
 	public String toCSVString() {
-		String s1 =  name + "," + colors[0] + ","
+		String s =  name + "," + colors[0] + ","
 				+ colors[1] + ","
 				+ colors[2] + ","
 				+ colors[3] + ","
-				+ colors[4] + "\n";
+				+ colors[4];
 
-		return s1;
+		for (int i = 0; i < descriptors.size(); i++)
+			s += descriptors.get(i).toCSVString();
+
+		s += "\n";
+
+		return s;
 	}
 
 	
