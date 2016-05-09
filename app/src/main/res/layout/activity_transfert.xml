@@ -98,7 +98,7 @@
         <com.epfl.computational_photography.paletizer.fastTranfer.MySurfaceView
             android:id="@+id/surfaceView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_240sdp"
+            android:layout_height="@dimen/_200sdp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:layout_above="@+id/computeTransfertFast"
@@ -112,7 +112,7 @@
             android:id="@+id/transfertImageResult"
             android:onClick="goFullScreen"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_240sdp"
+            android:layout_height="@dimen/_200sdp"
             android:layout_gravity="center"
             />
         <Button

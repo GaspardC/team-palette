@@ -9,7 +9,7 @@ import com.epfl.computational_photography.paletizer.R;
  */
 public class PaletteDB {
 
-    private final PaletteDatabase pdb;
+    public final PaletteDatabase pdb;
     private  Context ctx = null;
     private Palette[] semSuggestions;
     private boolean paletteHasBeenLoaded = false;

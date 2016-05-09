@@ -317,7 +317,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     }
 
     public void saveThePalette(View view) {
-        PaletteDatabase plDB = new PaletteDatabase(PaletteActivity.this);
+        PaletteDatabase plDB = paletteDB.pdb;
         plDB.savePaletteInDatabase(getSelectedPalette());
         Toast.makeText(this,"palette saved",Toast.LENGTH_SHORT).show();
     }
@@ -488,7 +488,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         cam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogGenerate.hide();
+                dialogEditName.hide();
             }
         });
 
