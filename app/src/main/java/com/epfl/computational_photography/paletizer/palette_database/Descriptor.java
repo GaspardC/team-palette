@@ -24,10 +24,10 @@ public class Descriptor {
     		c = DatabaseConfig.db.getMostFrequentConcept(word, "n");
     	}
     	// sandy (first name) -> sandy (adj)
-    	if(c == null && spos.equals("n")) {
-    		pos = POS.a;
-    		c = DatabaseConfig.db.getMostFrequentConcept(word, "a");
-    	}
+    	//if(c == null && spos.equals("n")) {
+    	//	pos = POS.a;
+    	//	c = DatabaseConfig.db.getMostFrequentConcept(word, "a");
+    	//}
     	// olive
     	if(c == null && spos.equals("a")) {
     		pos = POS.n;
@@ -39,10 +39,10 @@ public class Descriptor {
     		c = DatabaseConfig.db.getMostFrequentConcept(word, "n");
     	}
     	// amazing 
-    	if(c == null && spos.equals("v") && word.length() >= 3 && word.substring(word.length()-3).equals("ing")) {
-    		pos = POS.a;
-    		c = DatabaseConfig.db.getMostFrequentConcept(word, "a");
-    	}
+    	//if(c == null && spos.equals("v") && word.length() >= 3 && word.substring(word.length()-3).equals("ing")) {
+    	//	pos = POS.a;
+    	//	c = DatabaseConfig.db.getMostFrequentConcept(word, "a");
+    	//}
     	// wine
     	if(c == null && spos.equals("v")) {
     		pos = POS.n;
@@ -52,7 +52,6 @@ public class Descriptor {
     	return c;
     }
 
-	
 	public static POS string_to_POS(String spos) {
 		if (spos.equals("n")) return POS.n;
 		else if (spos.equals("v")) return POS.v;

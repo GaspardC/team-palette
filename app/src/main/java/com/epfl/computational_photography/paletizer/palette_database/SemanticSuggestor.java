@@ -32,6 +32,10 @@ public class SemanticSuggestor {
         
     public double computeScore(Palette p) {
     	double max = -1;
+		for (String word : p.name.split(" "))
+			if (word.equals(refWord))
+				return - Double.MAX_VALUE;
+
     	for(Descriptor pdes : p.descriptors) {
        	 	double score = rc.calcRelatednessOfSynset(pdes.concept, refConcepts[Descriptor.POS_to_int(pdes.pos)]).getScore();
        	 	if (score > max)

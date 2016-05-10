@@ -406,7 +406,8 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
     private void popupIfNoResultFound() {
 
-            if(paletteArrayList.size() <2){
+            if(paletteArrayList.size() == 0
+                    || paletteArrayList.get(0).name.equals(getApplicationContext().getString(R.string.no_match))){
                 showCustomDialogGenerate();
             }
     }
