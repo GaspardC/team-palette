@@ -8,11 +8,11 @@
 
 	<body>
 		<?php
-		if(!(isset($_POST['login']) && isset($_POST['choice']))){
+		if(!isset($_POST['choice'])){
 			header('Location:error.php');
 		}
 		
-		$results = fopen("results/".$_POST['login'].".txt", "a") or die("Fatality.");
+		$results = fopen("results/".$_POST['sciper'].".txt", "a") or die("Fatality.");
 		$txt = "Image Set: ".$_POST['set'].", Chosen: ".$_POST['choice']."\nEnd\n";
 		fwrite($results, $txt);
 		fclose($results);
@@ -22,7 +22,7 @@
 			<h2>Success!</h2>
 			
 			<p>
-			You have succesfully completed task one.
+			You have succesfully completed the task!
 			<br />
 			<br />
 			<img src="content/pouce.png" alt="poucevert" id="poucevert"/> 

@@ -13,10 +13,6 @@
 			$sets = range(1, $nbrounds);*/
 			$sets = range(0, 4);
 			shuffle($sets);
-			
-			if(isset($_GET['g']) && $_GET['g']==0){
-				echo '<h1 id="wrongid"> Login incorrect, please try again. </h1>';
-			}
 		?>
 		
 		<h1> Instructions </h1>
@@ -26,13 +22,10 @@
 		Just chose the image most <em>visually</em> pleasing, and click next. <br />
 		Make sure to be in a place with enough white light and that your screen luminosity isn't too low.</p>
 		
-		<p>Please enter your logins.<br />
+		<p>Please enter your sciper.<br />
 			<form method="post" action="imagetest.php">
-				<label for="login"> Login </label>
-				<input type="number" min="1" max="100" name="login" id="login" required autofocus/> <br /> <br />
-				
 				<label for="sciper"> Sciper </label>
-				<input type="number" min="0" max="999999" name="sciper" id="sciper" required /> <br /> <br />
+				<input type="number" min="0" max="999999" name="sciper" id="sciper" required autofocus /> <br /> <br />
 				Click <input type="submit" value="next" class="link"> to continue.
 				
 				<!-- Hidden inputs -->
@@ -42,6 +35,9 @@
 				}
 				?>
 				<input type="hidden" value="first" name="from" />
+				<?php 
+					echo '<input type="hidden" value="'.$sets[0].'" name="set" />';
+				?>
 				
 			</form>
 			
