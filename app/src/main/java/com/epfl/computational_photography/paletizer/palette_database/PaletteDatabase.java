@@ -19,6 +19,7 @@ public class PaletteDatabase {
 	
 	private ArrayList<Palette> palettes;
     Context ctx;
+	public boolean fileLoaded = false;
 
     public PaletteDatabase(Context context) {
         ctx = context;
@@ -35,6 +36,7 @@ public class PaletteDatabase {
 	}
 	
 	public void addFromFile(File inputFile) {
+		fileLoaded = true;
         System.out.println("Loading " + inputFile);
 		BufferedReader br = null;
 		String line = "";

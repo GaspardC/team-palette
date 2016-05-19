@@ -26,6 +26,7 @@ import com.epfl.computational_photography.paletizer.SlideMenu.SlideMenuActivity;
 import com.epfl.computational_photography.paletizer.palette.Extractor;
 import com.epfl.computational_photography.paletizer.palette.Transferer;
 import com.epfl.computational_photography.paletizer.palette_database.Color;
+import com.epfl.computational_photography.paletizer.palette_database.DatabaseConfig;
 import com.epfl.computational_photography.paletizer.palette_database.FlickrInterface;
 import com.epfl.computational_photography.paletizer.palette_database.Palette;
 import com.epfl.computational_photography.paletizer.palette_database.PaletteDB;
@@ -82,7 +83,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
         setupSearchView();
         palSel.setVisibility(View.INVISIBLE);
-
+        paletteDB = new PaletteDB(getApplicationContext());
 
 
     }
@@ -190,9 +191,11 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
     public void searchInDB(String[] query){
 
-        paletteDB = new PaletteDB(getApplicationContext());
+        //paletteDB = new PaletteDB(getApplicationContext());
         Palette[] palettes = null;
         if(mode.equals(STRING_NORMAL_QUERY)){
+            if(!paletteDB.pdb.fileLoaded)
+                paletteDB.pdb.addFromFile(DatabaseConfig.localPaletteCSV);
             palettes = paletteDB.getPalette(query[0]);
         }
         else{

@@ -19,7 +19,7 @@ public class PaletteDB {
         DatabaseConfig.prepareWordNet(ctx);
 
         pdb = new PaletteDatabase(ctx);
-        pdb.addFromFile(DatabaseConfig.localPaletteCSV);
+        //pdb.addFromFile(DatabaseConfig.localPaletteCSV);
 
     }
 
