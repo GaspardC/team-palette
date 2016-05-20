@@ -85,21 +85,7 @@ public class MainActivity extends SlideMenuActivity {
 
     }
 
-    @Override
-
-    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
-
-        switch(permsRequestCode){
-
-            case 200:
-
-                boolean audioAccepted = grantResults[0]==PackageManager.PERMISSION_GRANTED;
-
-                break;
-
-        }
-
-    }
+    
 
 //    private boolean shouldWeAsk(String permission){
 //        sharedPreferences = getSharedPreferences("permission",1);

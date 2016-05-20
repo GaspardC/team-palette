@@ -58,14 +58,7 @@
 
 
         />
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/button_shape_rounded"
-        android:src="@drawable/flickr_icon"
-        android:tint="@color/colorPrimary"
-        android:id="@+id/flickr_button"
-        />
+
         <Button
             android:textAllCaps="false"
             android:layout_width="60dp"

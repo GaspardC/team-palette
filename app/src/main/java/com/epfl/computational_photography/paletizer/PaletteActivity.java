@@ -370,18 +370,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         showCustomDialogEditName();
     }
 
-    public void generateApaletteLib(View view) {
-        palSel.setVisibility(View.VISIBLE);
-        PhotoManager.choseFromLibrary(PaletteActivity.this);
-        extractPaletteFromImage = true;
-    }
 
-
-    public void generateAPaletteCam(View view) {
-        palSel.setVisibility(View.VISIBLE);
-        PhotoManager.takePhoto(PaletteActivity.this);
-        extractPaletteFromImage = true;
-    }
 
     public void flickerMode(View view) {
         if(mode.equals(STRING_NORMAL_QUERY)){
@@ -393,6 +382,16 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             ((ImageView) view).setColorFilter(getResources().getColor(R.color.colorPrimary));
         }
         query = ""; //to reload
+    }
+
+    public void popUpGenerateNewPalette(View view) {
+        showCustomDialogGenerate();
+
+        TextView tv = (TextView) dialogGenerate.findViewById(R.id.tv);
+        tv.setVisibility(View.GONE);
+
+        TextView subtv = (TextView) dialogGenerate.findViewById(R.id.subtv);
+        subtv.setText("Create new palettes with ");
     }
 
 
@@ -454,11 +453,21 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
 
             dialogGenerate.show();
+
+            TextView tv = (TextView) dialogGenerate.findViewById(R.id.tv);
+            tv.setVisibility(View.VISIBLE);
+
+            TextView subtv = (TextView) dialogGenerate.findViewById(R.id.subtv);
+            subtv.setText("but you can create new palettes");
+
+
+
             ImageView lib = (ImageView) dialogGenerate.findViewById(R.id.popup_extract_lib);
             lib.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialogGenerate.dismiss();
+                    palSel.setVisibility(View.VISIBLE);
                     PhotoManager.choseFromLibrary(PaletteActivity.this);
                     extractPaletteFromImage = true;
                 }
@@ -468,23 +477,25 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
                 @Override
                 public void onClick(View v) {
                     dialogGenerate.dismiss();
+                    palSel.setVisibility(View.VISIBLE);
+
                     PhotoManager.takePhoto(PaletteActivity.this);
                     extractPaletteFromImage = true;
                 }
             });
 
-            ImageView flickr = (ImageView) dialogGenerate.findViewById(R.id.flickr_button);
-            flickr.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String [] q = new String[2];
-                    q[0] = query;
-                    mode = STRING_FLICKR_QUERY;
-                    new DownloadFilesTask().execute(q);
-                    dialogGenerate.dismiss();
-                    buttonPlus.setVisibility(View.INVISIBLE);
-                }
-            });
+//            ImageView flickr = (ImageView) dialogGenerate.findViewById(R.id.flickr_button);
+//            flickr.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    String [] q = new String[2];
+//                    q[0] = query;
+//                    mode = STRING_FLICKR_QUERY;
+//                    new DownloadFilesTask().execute(q);
+//                    dialogGenerate.dismiss();
+//                    buttonPlus.setVisibility(View.INVISIBLE);
+//                }
+//            });
             Button noThks = (Button) dialogGenerate.findViewById(R.id.no_thanks_button);
             noThks.setOnClickListener(new View.OnClickListener() {
                 @Override

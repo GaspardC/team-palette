@@ -219,54 +219,20 @@
 
 
 
-    <RelativeLayout
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:id="@+id/generate_new_rl"
-        >
+
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:padding="10dp"
+        android:textAlignment="gravity"
+        android:gravity="center"
         android:textAllCaps="false"
-        android:text="Generate new palettes here : "
+        android:onClick="popUpGenerateNewPalette"
+        android:text="click to generate new palettes  "
         android:background="@color/colorPrimary"
         android:textColor="#ffffff"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/border_ll"
-            android:padding="3dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            >
 
-            <ImageView
-                android:tint="@color/colorYellow"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/camera_icon"
-                android:onClick="generateAPaletteCam"
-                android:layout_marginRight="20dp"
-                />
-            <ImageView
-                android:layout_marginRight="20dp"
-                android:tint="@color/colorYellow"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/library_icon"
-                android:onClick="generateApaletteLib"
-                />
 
-        </LinearLayout>
-
-    </RelativeLayout>
 
 </RelativeLayout>
