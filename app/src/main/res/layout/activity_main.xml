@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:textColor="#ffffff"
             android:layout_height="20dp"
-            android:text="palete tranfer"
+            android:text="pallete tranfer"
             android:background="@color/colorPrimary"
             android:onClick="goToStyleActivity"
             android:textStyle="italic"

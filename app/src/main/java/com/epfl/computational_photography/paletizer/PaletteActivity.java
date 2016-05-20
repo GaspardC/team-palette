@@ -64,6 +64,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private Dialog dialogEditName;
     private String mode = STRING_NORMAL_QUERY;
     private Bitmap bitmapTarget;
+    private Dialog dialogImageClicked;
 
 
     @Override
@@ -111,6 +112,8 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
                     extractPaletteFromImage = true;
                 } else {
                     if (palSel != null) {
+                        palSel.setVisibility(View.VISIBLE);
+
                         setColorOfPalSelected(plClicked);
 
                         InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -288,8 +291,9 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
 
 
     public void changePhotoSource(View view) {
-        PhotoManager.choseFromLibrary(PaletteActivity.this);
+        if(dialogImageClicked!= null) dialogImageClicked.dismiss();
         changePhotoSource = true;
+        PhotoManager.choseFromLibrary(PaletteActivity.this);
     }
 
     public void seeMorePalette(View view) {
@@ -305,10 +309,35 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     }
 
     public void addPhotoByCam(View view) {
+        if(dialogImageClicked!= null) dialogImageClicked.dismiss();
         PhotoManager.takePhoto(this);
     }
 
-    public void goFullScreenPalette(View view) {
+    public void imagePreviewClicked(View view) {
+        if(dialogImageClicked == null || !dialogImageClicked.isShowing() ) {
+            dialogImageClicked = new Dialog(PaletteActivity.this,
+                    android.R.style.Theme_Translucent);
+            dialogImageClicked.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+            dialogImageClicked.setCancelable(true);
+            dialogImageClicked.setContentView(R.layout.dialog_preview_clicked);
+
+
+            dialogImageClicked.show();
+
+            Button noThanksButton = (Button) dialogImageClicked.findViewById(R.id.nothanks);
+            noThanksButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogImageClicked.dismiss();
+                }
+            });
+        }
+
+    }
+
+    public void goFullScreen_paletteActivity(View view){
+        dialogImageClicked.dismiss();
         ImageView im = (ImageView) findViewById(R.id.imageStyleActivity) ;
         Bitmap bitmap = ((BitmapDrawable)im.getDrawable()).getBitmap();
         Intent newActivity = new Intent(getApplicationContext(), FullScreenActivity.class);
@@ -316,7 +345,6 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, bs);
         newActivity.putExtra("byteArray", bs.toByteArray());
         startActivity(newActivity);
-
     }
 
     public void saveThePalette(View view) {
@@ -385,7 +413,6 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
                 ll.setVisibility(View.VISIBLE);
                 loadingBalls.setVisibility(View.GONE);
                 buttonPlus.setVisibility(View.VISIBLE);
-                palSel.setVisibility(View.VISIBLE);
 
 
             }

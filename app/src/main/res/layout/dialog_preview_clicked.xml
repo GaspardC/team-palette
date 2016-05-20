@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bgdialog"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change the image or go fullScreen"
+        android:textColor="@color/colorYellow"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape_rounded"
+        android:src="@drawable/library_icon"
+        android:tint="@color/colorPrimary"
+        android:onClick="changePhotoSource"
+
+        />
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape_rounded"
+        android:src="@drawable/camera_icon"
+        android:tint="@color/colorPrimary"
+        android:onClick="addPhotoByCam"
+
+        />
+    <ImageView
+        android:layout_marginLeft="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape_rounded"
+        android:src="@drawable/full_screen_icon"
+        android:tint="@color/colorPrimary"
+        android:onClick="goFullScreen_paletteActivity"
+        />
+        <Button
+            android:textAllCaps="false"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="no thanks"
+            android:textSize="10sp"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/nothanks"
+            android:background="@drawable/button_shape_rounded"
+            />
+    </LinearLayout>
+
+
+
+</LinearLayout>
