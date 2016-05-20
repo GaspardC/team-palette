@@ -39,7 +39,7 @@
                 android:layout_margin="10dp"
                 >
                 <ImageView
-                    android:tint="@color/colorPrimary"
+                    android:tint="@color/colorPink"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/flickr_icon"
@@ -190,7 +190,7 @@
               android:layout_width="wrap_content"
               android:onClick="imagePreviewClicked"
               android:layout_height="@dimen/_200sdp"
-              android:src="@drawable/soleil"
+              android:src="@drawable/temple"
               android:id="@+id/imageStyleActivity"/>
 
       </LinearLayout>

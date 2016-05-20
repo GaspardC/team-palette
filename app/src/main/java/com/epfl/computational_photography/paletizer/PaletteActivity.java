@@ -62,7 +62,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
     private ImageView image;
     private int[] selectedColors;
     private Dialog dialogEditName;
-    private String mode = STRING_NORMAL_QUERY;
+    private String mode = STRING_FLICKR_QUERY;
     private Bitmap bitmapTarget;
     private Dialog dialogImageClicked;
 
@@ -85,8 +85,6 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         setupSearchView();
         palSel.setVisibility(View.INVISIBLE);
         paletteDB = new PaletteDB(getApplicationContext());
-
-
     }
 
 
@@ -411,7 +409,7 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
             if (loadingBalls != null && ll != null) {
                 ll.setVisibility(View.VISIBLE);
                 loadingBalls.setVisibility(View.GONE);
-                buttonPlus.setVisibility(View.VISIBLE);
+                if(mode.equals(STRING_NORMAL_QUERY)) buttonPlus.setVisibility(View.VISIBLE);
 
 
             }

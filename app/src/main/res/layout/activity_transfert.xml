@@ -71,7 +71,7 @@
             android:id="@+id/transfertTargetImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/mer"
+            android:src="@drawable/temple"
             android:layout_marginBottom="3dp"/>
           <LinearLayout
               android:layout_width="match_parent"
