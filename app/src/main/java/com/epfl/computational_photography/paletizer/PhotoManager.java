@@ -80,7 +80,8 @@ public class PhotoManager {
             imgDecodableString = cursor.getString(columnIndex);
             cursor.close();
 
-        return BitmapFactory.decodeFile(imgDecodableString);
+//        return BitmapFactory.decodeFile(imgDecodableString);
+        return  resizeIfNeeded(400,imgDecodableString);
 
     }
 
@@ -88,7 +89,7 @@ public class PhotoManager {
 
             Log.d("CameraDemo", "Pic saved");
 
-            Bitmap bm = resizeIfNeeded(400);
+            Bitmap bm = resizeIfNeeded(400, PaletizerApplication.fileName);
             if (bm == null) {
                 Toast.makeText(activity.getApplicationContext(), "problem with the image", Toast.LENGTH_SHORT).show();
                 return null;
@@ -100,10 +101,9 @@ public class PhotoManager {
     }
 
 
-    private static Bitmap resizeIfNeeded(int size) {
+    private static Bitmap resizeIfNeeded(int size,String fileName) {
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;
-        String fileName = PaletizerApplication.fileName;
         BitmapFactory.decodeFile(fileName, bounds);
 
 
