@@ -104,16 +104,14 @@ public class PhotoManager {
     private static Bitmap resizeIfNeeded(int size,String fileName) {
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;
+
         BitmapFactory.decodeFile(fileName, bounds);
-
-
         // Find the correct scale value. It should be the power of 2.
         int scale = 1;
         while(bounds.outWidth / scale / 2 >= size &&
                 bounds.outHeight / scale / 2 >= size) {
             scale *= 2;
         }
-
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inSampleSize = scale;
         return BitmapFactory.decodeFile(fileName, opts);

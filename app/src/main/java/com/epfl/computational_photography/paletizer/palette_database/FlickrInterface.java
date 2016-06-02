@@ -98,7 +98,9 @@ public class FlickrInterface {
 
     public Palette[] getPalettesFromQuery(String word, int nbResults) {
         PhotoList list = searchPhotos(word, nbResults);
-        Palette[] res = new Palette[list.size()];
+        if(list!=null){
+            Palette[] res = new Palette[list.size()];
+
         Extractor paletteExtractor = new Extractor();
 
         for(int i = 0; i < list.size(); i++) {
@@ -106,6 +108,10 @@ public class FlickrInterface {
             int[] colors = paletteExtractor.extract(image);
             res[i] = paletteFromIntArray(word, colors);
         }
+        return res;
+        }
+        Palette[] res  = new Palette[1];
+        res[0] = new Palette("flickr connection lost",new Color("#ffffff"));
         return res;
     }
 

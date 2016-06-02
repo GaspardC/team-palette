@@ -81,7 +81,7 @@ public class Transferer {
 
 
         // Find the correct scale value. It should be the power of 2.
-        int size = 800;
+        int size = 400;
         int scale = 1;
         while(result.cols() / scale / 2 >= size &&
                 result.rows() / scale / 2 >= size) {

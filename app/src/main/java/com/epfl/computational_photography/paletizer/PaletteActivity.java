@@ -33,6 +33,7 @@ import com.epfl.computational_photography.paletizer.palette_database.PaletteDB;
 import com.epfl.computational_photography.paletizer.palette_database.PaletteDatabase;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 
@@ -338,11 +339,27 @@ public class PaletteActivity extends SlideMenuActivity implements SearchView.OnQ
         dialogImageClicked.dismiss();
         ImageView im = (ImageView) findViewById(R.id.imageStyleActivity) ;
         Bitmap bitmap = ((BitmapDrawable)im.getDrawable()).getBitmap();
-        Intent newActivity = new Intent(getApplicationContext(), FullScreenActivity.class);
-        ByteArrayOutputStream bs = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bs);
-        newActivity.putExtra("byteArray", bs.toByteArray());
-        startActivity(newActivity);
+//        Intent newActivity = new Intent(getApplicationContext(), FullScreenActivity.class);
+//        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bs);
+//        newActivity.putExtra("byteArray", bs.toByteArray());
+
+        try {
+            //Write file
+            String filename = "bitmap.png";
+            FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+            //Cleanup
+            stream.close();
+            //Pop intent
+            Intent in1 = new Intent(this, FullScreenActivity.class);
+            in1.putExtra("image", filename);
+            startActivity(in1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        startActivity(newActivity);
     }
 
     public void saveThePalette(View view) {

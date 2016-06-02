@@ -15,9 +15,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
 import java.util.Date;
 
 public class FullScreenActivity extends Activity {
+
+    private ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +28,21 @@ public class FullScreenActivity extends Activity {
         setContentView(R.layout.activity_full_screen);
         Log.d("full","full");
 
-        Bitmap b = BitmapFactory.decodeByteArray(
-                getIntent().getByteArrayExtra("byteArray"),0,getIntent().getByteArrayExtra("byteArray").length);
-        ImageView img = (ImageView) findViewById(R.id.fullScreenImage);
-        img.setImageBitmap(b);
+//        Bitmap b = BitmapFactory.decodeByteArray(
+//                getIntent().getByteArrayExtra("byteArray"),0,getIntent().getByteArrayExtra("byteArray").length);
+
+
+        Bitmap bmp = null;
+        String filename = getIntent().getStringExtra("image");
+        try {
+            FileInputStream is = this.openFileInput(filename);
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        img = (ImageView) findViewById(R.id.fullScreenImage);
+        img.setImageBitmap(bmp);
 
 
         img.setOnLongClickListener(new View.OnLongClickListener() {
@@ -54,5 +68,11 @@ public class FullScreenActivity extends Activity {
             return true;
             }
             });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        img.setImageBitmap(null);
     }
 }
